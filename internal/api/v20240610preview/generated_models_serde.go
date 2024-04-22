@@ -699,9 +699,7 @@ func (h *HcpOpenShiftClusterNodePoolResourceUpdate) UnmarshalJSON(data []byte) e
 func (h HcpOpenShiftClusterNodePoolResourceUpdateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "autoScaling", h.AutoScaling)
-	populate(objectMap, "labels", h.Labels)
 	populate(objectMap, "replicas", h.Replicas)
-	populate(objectMap, "taints", h.Taints)
 	populate(objectMap, "tuningConfigs", h.TuningConfigs)
 	populate(objectMap, "version", h.Version)
 	return json.Marshal(objectMap)
@@ -719,14 +717,8 @@ func (h *HcpOpenShiftClusterNodePoolResourceUpdateProperties) UnmarshalJSON(data
 		case "autoScaling":
 				err = unpopulate(val, "AutoScaling", &h.AutoScaling)
 			delete(rawMsg, key)
-		case "labels":
-				err = unpopulate(val, "Labels", &h.Labels)
-			delete(rawMsg, key)
 		case "replicas":
 				err = unpopulate(val, "Replicas", &h.Replicas)
-			delete(rawMsg, key)
-		case "taints":
-				err = unpopulate(val, "Taints", &h.Taints)
 			delete(rawMsg, key)
 		case "tuningConfigs":
 				err = unpopulate(val, "TuningConfigs", &h.TuningConfigs)

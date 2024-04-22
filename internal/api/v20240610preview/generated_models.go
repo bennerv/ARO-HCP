@@ -258,14 +258,8 @@ type HcpOpenShiftClusterNodePoolResourceUpdateProperties struct {
 	// Representation of a autoscaling in a node pool.
 	AutoScaling *NodePoolAutoScalingUpdate
 
-	// Labels for the nodes
-	Labels []*string
-
 	// The number of worker nodes, it cannot be used together with autoscaling
 	Replicas *int32
-
-	// Taints for the nodes
-	Taints []*string
 
 	// Tuning configs, TODO provide meaningful explanation TuningConfig is a list of references to ConfigMaps containing serialized
 // Tuned resources to define the tuning configuration to be applied to nodes

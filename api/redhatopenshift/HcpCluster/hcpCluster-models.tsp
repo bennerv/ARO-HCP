@@ -450,11 +450,11 @@ model NodePoolSpec {
   autoScaling?: NodePoolAutoScaling;
 
   /** Labels for the nodes */
-  @visibility("create", "update")
+  @visibility("create")
   labels?: string[];
 
   /** Taints for the nodes */
-  @visibility("create", "update")
+  @visibility("create")
   taints?: string[];
 
   /*
