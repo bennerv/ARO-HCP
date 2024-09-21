@@ -3,7 +3,7 @@ SHELL = /bin/bash
 CONFIG_PROFILE ?= dev
 include configurations/$(CONFIG_PROFILE).mk
 
-CURRENTUSER = $(shell az ad signed-in-user show | jq -r '.id')
+CURRENTUSER ?= $(shell az ad signed-in-user show | jq -r '.id')
 DEPLOYMENTNAME = $(RESOURCEGROUP)
 DEPLOYMENTNAMEREGION = $(REGIONAL_RESOURCEGROUP)-REGION
 
@@ -164,7 +164,7 @@ metrics-infra: regionalRg
 		--parameters \
 		  globalResourceGroup=$(REGIONAL_RESOURCEGROUP) \
 		--parameters configurations/dev-metrics.bicepparam
-.PHONY: metrics-infra 
+.PHONY: metrics-infra
 
 enable-aks-metrics: metrics-infra
 ifndef AKSCONFIG
