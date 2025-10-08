@@ -1,0 +1,19 @@
+# Example quota configuration file
+# This file defines the quota requests to be submitted
+
+quotas:
+  # Standard DSv3 Family vCPUs
+  - resourceName: standardDSv3Family
+    limit: 100
+
+  # Standard DSv4 Family vCPUs
+  - resourceName: standardDSv4Family
+    limit: 200
+
+  # Total Regional vCPUs
+  - resourceName: cores
+    limit: 500
+
+  # Public IP Addresses
+  - resourceName: PublicIPAddresses
+    limit: 50

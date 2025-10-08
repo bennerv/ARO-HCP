@@ -46,7 +46,7 @@ resource accessRule 'Microsoft.Network/networkSecurityPerimeters/profiles/access
   }
 }
 
-resource resourecAssociation 'Microsoft.Network/networkSecurityPerimeters/resourceAssociations@2024-06-01-preview' = [
+resource resourceAssociation 'Microsoft.Network/networkSecurityPerimeters/resourceAssociations@2024-06-01-preview' = [
   for ar in associatedResources: {
     parent: nsp
     location: location
