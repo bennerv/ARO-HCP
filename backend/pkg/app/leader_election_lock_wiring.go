@@ -35,6 +35,14 @@ const (
 // used for leader election in a Kubernetes cluster. leaseHolderIdentity the
 // unique identifier of the participant across all participants in the election.
 func NewLeaderElectionLock(leaseHolderIdentity string, kubeconfig *rest.Config, k8sNamespace string) (resourcelock.Interface, error) {
+	// Use a dedicated config copy with client-side rate limiting disabled for
+	// leader election. The default client-go rate limits (QPS=5, Burst=10) are
+	// shared across all clients using the same rest.Config, which can cause
+	// lease renewal requests to be throttled and lead to spurious leader
+	// election losses. We rely on server-side API Priority and Fairness instead.
+	leaderElectionConfig := rest.CopyConfig(kubeconfig)
+	leaderElectionConfig.QPS = -1
+
 	leaderElectionLock, err := resourcelock.NewFromKubeconfig(
 		resourcelock.LeasesResourceLock,
 		k8sNamespace,
@@ -42,7 +50,7 @@ func NewLeaderElectionLock(leaseHolderIdentity string, kubeconfig *rest.Config, 
 		resourcelock.ResourceLockConfig{
 			Identity: leaseHolderIdentity,
 		},
-		kubeconfig,
+		leaderElectionConfig,
 		leaderElectionRenewDeadline,
 	)
 	if err != nil {
