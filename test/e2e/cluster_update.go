@@ -28,17 +28,6 @@ import (
 	"github.com/Azure/ARO-HCP/test/util/verifiers"
 )
 
-// Helper to convert ManagedServiceIdentity to AzureResourceManagerCommonTypesManagedServiceIdentityUpdate
-func toIdentityUpdate(identity *hcpsdk20240610preview.ManagedServiceIdentity) *hcpsdk20240610preview.AzureResourceManagerCommonTypesManagedServiceIdentityUpdate {
-	if identity == nil {
-		return nil
-	}
-	return &hcpsdk20240610preview.AzureResourceManagerCommonTypesManagedServiceIdentityUpdate{
-		Type:                   identity.Type,
-		UserAssignedIdentities: identity.UserAssignedIdentities,
-	}
-}
-
 var _ = Describe("Update HCPOpenShiftCluster", func() {
 	Context("Negative", func() {
 		It("creates a cluster and fails to update its name with a PATCH request",
@@ -99,7 +88,7 @@ var _ = Describe("Update HCPOpenShiftCluster", func() {
 
 				By("sending a PATCH request attempting to change the resource name")
 				newName := clusterName + "-renamed"
-				update := hcpsdk20240610preview.HcpOpenShiftClusterUpdate{
+				update := hcpsdk20240610preview.HcpOpenShiftCluster{
 					Name: &newName,
 				}
 				_, err = framework.UpdateHCPCluster(
@@ -175,8 +164,8 @@ var _ = Describe("Update HCPOpenShiftCluster", func() {
 
 				By("sending a PATCH request to set a tag")
 				val := "should succeed"
-				update := hcpsdk20240610preview.HcpOpenShiftClusterUpdate{
-					Identity: toIdentityUpdate(clusterParams.Identity),
+				update := hcpsdk20240610preview.HcpOpenShiftCluster{
+					Identity: clusterParams.Identity,
 					Tags: map[string]*string{
 						"test": &val,
 					},

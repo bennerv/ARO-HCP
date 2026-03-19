@@ -136,8 +136,8 @@ var _ = Describe("Customer", func() {
 
 			By("scaling up the nodepool replicas from 2 to 3 replicas")
 			mainNodeCount = 3
-			update := hcpsdk20240610preview.NodePoolUpdate{
-				Properties: &hcpsdk20240610preview.NodePoolPropertiesUpdate{
+			update := hcpsdk20240610preview.NodePool{
+				Properties: &hcpsdk20240610preview.NodePoolProperties{
 					Replicas: to.Ptr(int32(mainNodeCount)),
 				},
 			}
@@ -163,8 +163,8 @@ var _ = Describe("Customer", func() {
 
 			By("scaling down the nodepool replicas from 3 to 2 replicas")
 			mainNodeCount = 2
-			update = hcpsdk20240610preview.NodePoolUpdate{
-				Properties: &hcpsdk20240610preview.NodePoolPropertiesUpdate{
+			update = hcpsdk20240610preview.NodePool{
+				Properties: &hcpsdk20240610preview.NodePoolProperties{
 					Replicas: to.Ptr(int32(mainNodeCount)),
 				},
 			}
@@ -187,8 +187,8 @@ var _ = Describe("Customer", func() {
 			Expect(verifiers.VerifyNodesReady().Verify(ctx, adminRESTConfig)).To(Succeed())
 
 			By("updating the one-replica nodepool replicas to 0 and enabling autoscaling with a PATCH")
-			update = hcpsdk20240610preview.NodePoolUpdate{
-				Properties: &hcpsdk20240610preview.NodePoolPropertiesUpdate{
+			update = hcpsdk20240610preview.NodePool{
+				Properties: &hcpsdk20240610preview.NodePoolProperties{
 					Replicas: to.Ptr(int32(0)),
 					AutoScaling: &hcpsdk20240610preview.NodePoolAutoScaling{
 						Min: to.Ptr(int32(2)),

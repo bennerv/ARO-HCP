@@ -1,47 +1,29 @@
-## Internal Go client SDK for testing
+# Internal Go Client SDK for Testing
 
-### Dependencies
+This document describes how the internal Go client SDK used for end-to-end
+testing is generated from the TypeSpec API definitions.
 
-Pin the `@autorest/go` version so we control when to upgrade it.
+## Generation
 
-> [!WARNING]
-> Upgrading may introduce new TypeSpec compiler validation errors.
+The full Go client SDK (including clients, fakes, models, etc.) is generated
+directly from TypeSpec using the `@azure-tools/typespec-go` emitter. The
+generated code lives in
+`test/sdk/resourcemanager/redhatopenshifthcp/armredhatopenshifthcp/` with
+`package armredhatopenshifthcp`.
 
-``` yaml
-use:
-- "@autorest/go@4.0.0-preview.74"
+To regenerate the test SDK:
+
+```bash
+cd api
+make testsdk
 ```
 
 ### API Version
 
-This defines the API version for the client SDK to use.
+The test SDK API version is controlled by `TESTSDK_VERSION` in the Makefile
+(default: `v20240610preview`).
 
-Before changing this, make sure the new API version has been fully deployed to all
-Azure regions by way of the ARO-HCP [ARM manifest](https://msazure.visualstudio.com/AzureRedHatOpenShift/_git/Arm-Manifests).
-
-``` yaml
-tag: v20240610preview
-```
-
-### Tag: v20240610preview
-
-These settings apply only when `--tag=v20240610preview` is specified on the command line.
-
-``` yaml $(tag) == 'v20240610preview'
-input-file:
-  - redhatopenshift/resource-manager/Microsoft.RedHatOpenShift/hcpclusters/preview/2024-06-10-preview/openapi.json
-go:
-  module-name: sdk/v20240610preview/resourcemanager/redhatopenshifthcp/armredhatopenshifthcp
-```
-
-### Code Generation
-
-Other Go SDK generation settings.
-
-``` yaml
-go:
-  go-sdk-folder: ../test
-  module: github.com/Azure/ARO-HCP/test/$(module-name)
-  output-folder: $(go-sdk-folder)/$(module-name)
-  azure-arm: true
-```
+> [!WARNING]
+> Before changing the test SDK API version, make sure the new API version has
+> been fully deployed to all Azure regions by way of the ARO-HCP
+> [ARM manifest](https://msazure.visualstudio.com/AzureRedHatOpenShift/_git/Arm-Manifests).

@@ -222,7 +222,7 @@ func UpdateHCPCluster(
 	hcpClient *hcpsdk20240610preview.HcpOpenShiftClustersClient,
 	resourceGroupName string,
 	hcpClusterName string,
-	update hcpsdk20240610preview.HcpOpenShiftClusterUpdate,
+	update hcpsdk20240610preview.HcpOpenShiftCluster,
 	timeout time.Duration,
 ) (*hcpsdk20240610preview.HcpOpenShiftCluster, error) {
 	ctx, cancel := context.WithTimeoutCause(ctx, timeout, fmt.Errorf("timeout '%f' minutes exceeded during UpdateHCPCluster for cluster %s in resource group %s", timeout.Minutes(), hcpClusterName, resourceGroupName))
@@ -398,7 +398,7 @@ func UpdateNodePoolAndWait(
 	resourceGroupName string,
 	hcpClusterName string,
 	nodePoolName string,
-	update hcpsdk20240610preview.NodePoolUpdate,
+	update hcpsdk20240610preview.NodePool,
 	timeout time.Duration,
 ) (*hcpsdk20240610preview.NodePool, error) {
 	ctx, cancel := context.WithTimeoutCause(ctx, timeout, fmt.Errorf("timeout '%f' minutes exceeded during UpdateNodePoolAndWait for nodepool %s in cluster %s in resource group %s", timeout.Minutes(), nodePoolName, hcpClusterName, resourceGroupName))

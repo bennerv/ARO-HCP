@@ -159,8 +159,8 @@ var _ = Describe("Customer", func() {
 
 			By("updating nodepool with new taints and scaling up")
 			taintReplicas := int32(3)
-			updateTaints := hcpsdk20240610preview.NodePoolUpdate{
-				Properties: &hcpsdk20240610preview.NodePoolPropertiesUpdate{
+			updateTaints := hcpsdk20240610preview.NodePool{
+				Properties: &hcpsdk20240610preview.NodePoolProperties{
 					Replicas: to.Ptr(taintReplicas),
 					Taints: []*hcpsdk20240610preview.Taint{
 						{
@@ -202,8 +202,8 @@ var _ = Describe("Customer", func() {
 
 			By("updating nodepool with a new label and scaling up")
 			finalReplicas := int32(4)
-			update := hcpsdk20240610preview.NodePoolUpdate{
-				Properties: &hcpsdk20240610preview.NodePoolPropertiesUpdate{
+			update := hcpsdk20240610preview.NodePool{
+				Properties: &hcpsdk20240610preview.NodePoolProperties{
 					Replicas: to.Ptr(finalReplicas),
 					Labels: []*hcpsdk20240610preview.Label{
 						{

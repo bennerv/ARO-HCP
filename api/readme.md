@@ -1,68 +1,37 @@
-# RedHatOpenShift HCP Clusters
+# RedHatOpenShift HCP Clusters — Server-Side Models
 
-> see https://aka.ms/autorest
+This document describes how server-side Go models are generated from the
+TypeSpec API definitions.
 
-## This is the autorest configuration file for server-side models
+## Generation
 
-This service (ab)uses autorest.go to generate Go models from TypeSpec files.
-The generated Go code is intended to be for client-side usage, but can also
-benefit the service itself.
+Go models (constants, model structs, and serialization helpers) are generated
+directly from TypeSpec using the `@azure-tools/typespec-go` emitter. The
+generated code lives in `internal/api/{VERSION}/generated/` with
+`package generated`.
 
----
+To regenerate models for the default (latest) API version:
 
-## Configuration
-
-### Dependencies
-
-Pin the `@autorest/go` version so we control when to upgrade it.
-
-> [!WARNING]
-> Upgrading may introduce new TypeSpec compiler validation errors.
-
-``` yaml
-use:
-- "@autorest/go@4.0.0-preview.74"
+```bash
+cd api
+make models
 ```
 
-### Basic Information
+To regenerate for a specific API version:
 
-These are the global settings for generating server-side models.
-
-``` yaml
-namespace: redhatopenshift
-project-folder: ../internal/api
-output-folder: $(project-folder)/$(tag)/generated
-
-go:
-  azure-arm: true
-  disallow-unknown-fields: true
-  # containing-module avoids generating a go.mod or go.version file in
-  # output-folder. The containing module name does not matter since we
-  # are not generating fakes.
-  containing-module: does-not-matter
-  generate-fakes: false
+```bash
+cd api
+make models VERSION=v20240610preview
 ```
 
-Additional options to reduce unused code as much as possible.
+The `make models` target:
+1. Runs `tsp compile` with `--emit @azure-tools/typespec-go` and appropriate options
+2. Formats imports with `goimports`
+3. Removes client/SDK files (client_factory, *_client, options, responses) — only model files are kept
 
-``` yaml
-go:
-  inject-spans: false
-  remove-unreferenced-types: true
-```
+### Supported API versions
 
-### Tag v20251223preview
-
-These settings apply only when `--tag=v20251223preview` is specified on the command line.
-
-``` yaml $(tag) == 'v20251223preview'
-input-file: redhatopenshift/resource-manager/Microsoft.RedHatOpenShift/hcpclusters/preview/2025-12-23-preview/openapi.json
-```
-
-### Tag v20240610preview
-
-These settings apply only when `--tag=v20240610preview` is specified on the command line.
-
-``` yaml $(tag) == 'v20240610preview'
-input-file: redhatopenshift/resource-manager/Microsoft.RedHatOpenShift/hcpclusters/preview/2024-06-10-preview/openapi.json
-```
+| VERSION tag | TypeSpec API version |
+|---|---|
+| `v20251223preview` | `2025-12-23-preview` |
+| `v20240610preview` | `2024-06-10-preview` |

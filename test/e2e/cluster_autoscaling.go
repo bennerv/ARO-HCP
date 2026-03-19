@@ -129,8 +129,8 @@ var _ = Describe("Customer", func() {
 				tc.Get20240610ClientFactoryOrDie(ctx).NewHcpOpenShiftClustersClient(),
 				*resourceGroup.Name,
 				customerClusterName,
-				hcpsdk20240610preview.HcpOpenShiftClusterUpdate{
-					Properties: &hcpsdk20240610preview.HcpOpenShiftClusterPropertiesUpdate{
+				hcpsdk20240610preview.HcpOpenShiftCluster{
+					Properties: &hcpsdk20240610preview.HcpOpenShiftClusterProperties{
 						Autoscaling: &hcpsdk20240610preview.ClusterAutoscalingProfile{
 							MaxNodesTotal: to.Ptr(autoscalingMaxNodesTotal),
 						},

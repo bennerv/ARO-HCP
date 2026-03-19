@@ -77,16 +77,17 @@ cd api/redhatopenshift/HcpCluster/examples/$API_VERSION
 oav generate-examples ../../../resource-manager/Microsoft.RedHatOpenShift/preview/$API_VERSION/openapi.json
 ```
 
-## Generating the api client
+## Generating Go models and test SDK
 
-The API client can be generated using the [autorest](https://github.com/Azure/autorest).
-the devcontainer comes with the autorest installed. The usage is straightforward:
+Go models and the test client SDK are generated directly from TypeSpec using
+the `@azure-tools/typespec-go` emitter. See `api/readme.md` and
+`api/testsdk.md` for details.
 
 ```bash
-autorest api/autorest-config.yaml
+cd api
+make models             # generate server-side models
+make testsdk            # generate test client SDK
 ```
 
-The generated clients are stored in `api/generated`.
-
-**IMPORTANT**: When the new examples are generated, all files are changed. Please make sure to review the changes before committing them
-and commit only the changed parts. Otherwise it will result is a lot of unnecessary changes in the PR.
+**IMPORTANT**: When the generated code changes, please review the changes before committing them
+and commit only the changed parts. Otherwise it will result in a lot of unnecessary changes in the PR.

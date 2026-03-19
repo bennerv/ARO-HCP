@@ -112,8 +112,8 @@ var _ = Describe("Customer", func() {
 				parts := strings.Split(clusterVersion, ".")
 				minor, _ := strconv.Atoi(parts[1])
 				invalidNodePoolVersion := fmt.Sprintf("%s.%d.0", parts[0], minor+1) // +1 y-stream, z set to 0
-				versionUpdate := hcpsdk20240610preview.NodePoolUpdate{
-					Properties: &hcpsdk20240610preview.NodePoolPropertiesUpdate{
+				versionUpdate := hcpsdk20240610preview.NodePool{
+					Properties: &hcpsdk20240610preview.NodePoolProperties{
 						Version: &hcpsdk20240610preview.NodePoolVersionProfile{
 							ID: &invalidNodePoolVersion,
 						},
