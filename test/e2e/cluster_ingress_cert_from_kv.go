@@ -25,11 +25,13 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	"k8s.io/apimachinery/pkg/types"
 
 	"github.com/google/uuid"
 
@@ -321,17 +323,17 @@ var _ = Describe("Customer", func() {
 				return expectTLSSecretSHA256(ctx, kubeClient, ingressNamespace, ingressSecretName, v1.SHA256)
 			}).WithContext(ctx).WithTimeout(5 * time.Minute).WithPolling(10 * time.Second).Should(Succeed())
 
-			//By("pointing IngressController/default at the new TLS Secret")
-			//patch := []byte(fmt.Sprintf(`{"spec":{"defaultCertificate":{"name":%q}}}`, ingressSecretName))
-			//icGVR := schema.GroupVersionResource{Group: "operator.openshift.io", Version: "v1", Resource: "ingresscontrollers"}
-			//_, err = dynClient.Resource(icGVR).Namespace(ingressOperatorNS).Patch(ctx, "default", types.MergePatchType, patch, metav1.PatchOptions{})
-			//Expect(err).NotTo(HaveOccurred(), "failed to patch IngressController default certificate")
+			By("pointing IngressController/default at the new TLS Secret")
+			patch := []byte(fmt.Sprintf(`{"spec":{"defaultCertificate":{"name":%q}}}`, ingressSecretName))
+			icGVR := schema.GroupVersionResource{Group: "operator.openshift.io", Version: "v1", Resource: "ingresscontrollers"}
+			_, err = dynClient.Resource(icGVR).Namespace(ingressOperatorNS).Patch(ctx, "default", types.MergePatchType, patch, metav1.PatchOptions{})
+			Expect(err).NotTo(HaveOccurred(), "failed to patch IngressController default certificate")
 
-			//By("waiting for the router to serve cert v1 on the apps wildcard")
-			//consoleHostPort := mustHostPortFromURL(consoleURL, 443)
-			//Eventually(func() error {
-			//	return expectServedCertSHA256(ctx, consoleHostPort, v1.SHA256)
-			//}).WithContext(ctx).WithTimeout(10 * time.Minute).WithPolling(15 * time.Second).Should(Succeed())
+			By("waiting for the router to serve cert v1 on the apps wildcard")
+			consoleHostPort := mustHostPortFromURL(consoleURL, 443)
+			Eventually(func() error {
+				return expectServedCertSHA256(ctx, consoleHostPort, v1.SHA256)
+			}).WithContext(ctx).WithTimeout(10 * time.Minute).WithPolling(15 * time.Second).Should(Succeed())
 
 			By("rotating: creating cert v2 in the customer Key Vault")
 			var v2 *framework.KeyVaultCertResult
@@ -354,12 +356,22 @@ var _ = Describe("Customer", func() {
 				return expectTLSSecretSHA256(ctx, kubeClient, ingressNamespace, ingressSecretName, v2.SHA256)
 			}).WithContext(ctx).WithTimeout(5 * time.Minute).WithPolling(10 * time.Second).Should(Succeed())
 
-			//By("waiting for the router to serve cert v2")
-			//Eventually(func() error {
-			//	return expectServedCertSHA256(ctx, consoleHostPort, v2.SHA256)
-			//}).WithContext(ctx).WithTimeout(10 * time.Minute).WithPolling(15 * time.Second).Should(Succeed())
+			By("waiting for the router to serve cert v2")
+			Eventually(func() error {
+				return expectServedCertSHA256(ctx, consoleHostPort, v2.SHA256)
+			}).WithContext(ctx).WithTimeout(10 * time.Minute).WithPolling(15 * time.Second).Should(Succeed())
 		})
 })
+
+func mustHostPortFromURL(raw string, defaultPort int) string {
+	u, err := url.Parse(raw)
+	Expect(err).NotTo(HaveOccurred(), "unable to parse url '%s'", raw)
+	host := u.Host
+	if !strings.Contains(host, ":") {
+		host = fmt.Sprintf("%s:%d", host, defaultPort)
+	}
+	return host
+}
 
 // expectTLSSecretSHA256 returns nil iff a Secret with type kubernetes.io/tls
 // exists at ns/name and the SHA-256 of the leaf cert in tls.crt matches want.
@@ -386,6 +398,18 @@ func expectTLSSecretSHA256(ctx context.Context, kubeClient kubernetes.Interface,
 	got := hex.EncodeToString(sha256Sum(leaf.Raw))
 	if got != want {
 		return fmt.Errorf("secret %s/%s leaf SHA256=%s, want %s", ns, name, got, want)
+	}
+	return nil
+}
+
+func expectServedCertSHA256(ctx context.Context, hostPort, want string) error {
+	certs, err := tlsCertsFromURL(ctx, "https://"+hostPort)
+	if err != nil {
+		return err
+	}
+	got := hex.EncodeToString(sha256Sum(certs[0].Raw))
+	if got != want {
+		return fmt.Errorf("served cert SHA256=%s, want %s, issuer=%s", got, want, certs[0].Issuer)
 	}
 	return nil
 }
