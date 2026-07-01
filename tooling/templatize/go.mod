@@ -13,7 +13,7 @@ require (
 	github.com/Azure/ARO-Tools/tools/prow-job-executor v0.0.0-20260625140822-7cf3574ac01b
 	github.com/Azure/ARO-Tools/tools/registration v0.0.0-20260617060128-2277df76598b
 	github.com/Azure/ARO-Tools/tools/secret-sync v0.0.0-20260617060128-2277df76598b
-	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.21.1
+	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.22.0
 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.13.1
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/authorization/armauthorization/v3 v3.0.0-beta.2
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice v1.0.0
