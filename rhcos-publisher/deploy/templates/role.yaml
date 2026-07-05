@@ -1,0 +1,35 @@
+{{- if .Values.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: rhcos-publisher-controller
+  namespace: '{{ .Release.Namespace }}'
+rules:
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - create
+  - get
+  - list
+  - update
+  - watch
+  - patch
+- apiGroups:
+  - rhcos.aro.openshift.io
+  resources:
+  - rhcosreleases
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - rhcos.aro.openshift.io
+  resources:
+  - rhcosreleases/status
+  verbs:
+  - get
+  - update
+  - patch
+{{- end }}

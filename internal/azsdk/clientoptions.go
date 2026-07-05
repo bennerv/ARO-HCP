@@ -33,6 +33,7 @@ const (
 	ComponentFleet           Component = "fleet"
 	ComponentResourceCleaner Component = "resource-cleaner"
 	ComponentMgmtAgent       Component = "mgmt-agent"
+	ComponentRHCOSPublisher  Component = "rhcos-publisher"
 	ComponentE2E             Component = "e2e"
 )
 

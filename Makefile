@@ -395,7 +395,7 @@ generate-kiota:
 PERS_OVERRIDE_FILE ?= /tmp/personal-dev-override.yaml
 
 build-services:
-	$(MAKE) $(BUILD_SERVICES_OPTS) build-frontend build-backend build-admin build-sessiongate build-mgmt-agent build-kube-applier build-fleet
+	$(MAKE) $(BUILD_SERVICES_OPTS) build-frontend build-backend build-admin build-sessiongate build-mgmt-agent build-kube-applier build-fleet build-rhcos-publisher
 .PHONY: build-services
 
 build-frontend:
@@ -426,6 +426,10 @@ build-fleet:
 	$(MAKE) -C fleet build-and-push
 .PHONY: build-fleet
 
+build-rhcos-publisher:
+	$(MAKE) -C rhcos-publisher build-and-push
+.PHONY: build-rhcos-publisher
+
 record-services-override: $(YQ) $(ORAS)
 	$(MAKE) -C frontend record-override OVERRIDE_CONFIG_FILE=/tmp/_frontend-override.yaml
 	$(MAKE) -C backend record-override OVERRIDE_CONFIG_FILE=/tmp/_backend-override.yaml
@@ -434,6 +438,7 @@ record-services-override: $(YQ) $(ORAS)
 	$(MAKE) -C mgmt-agent record-override OVERRIDE_CONFIG_FILE=/tmp/_mgmt-agent-override.yaml
 	$(MAKE) -C kube-applier record-override OVERRIDE_CONFIG_FILE=/tmp/_kube-applier-override.yaml
 	$(MAKE) -C fleet record-override OVERRIDE_CONFIG_FILE=/tmp/_fleet-override.yaml
+	$(MAKE) -C rhcos-publisher record-override OVERRIDE_CONFIG_FILE=/tmp/_rhcos-publisher-override.yaml
 	$(YQ) eval-all '. as $$item ireduce ({}; . * $$item)' \
 	  /tmp/_frontend-override.yaml \
 	  /tmp/_backend-override.yaml \
@@ -442,6 +447,7 @@ record-services-override: $(YQ) $(ORAS)
 	  /tmp/_mgmt-agent-override.yaml \
 	  /tmp/_kube-applier-override.yaml \
 	  /tmp/_fleet-override.yaml \
+	  /tmp/_rhcos-publisher-override.yaml \
 	  > $(PERS_OVERRIDE_FILE)
 .PHONY: record-services-override
 
@@ -456,6 +462,7 @@ latest-services-override: $(YQ)
 	$(MAKE) -C mgmt-agent record-latest-override OVERRIDE_CONFIG_FILE=/tmp/_mgmt-agent-override.yaml &
 	$(MAKE) -C kube-applier record-latest-override OVERRIDE_CONFIG_FILE=/tmp/_kube-applier-override.yaml &
 	$(MAKE) -C fleet record-latest-override OVERRIDE_CONFIG_FILE=/tmp/_fleet-override.yaml &
+	$(MAKE) -C rhcos-publisher record-latest-override OVERRIDE_CONFIG_FILE=/tmp/_rhcos-publisher-override.yaml &
 	wait
 	$(YQ) eval-all '. as $$item ireduce ({}; . * $$item)' \
 	  /tmp/_frontend-override.yaml \
@@ -465,6 +472,7 @@ latest-services-override: $(YQ)
 	  /tmp/_mgmt-agent-override.yaml \
 	  /tmp/_kube-applier-override.yaml \
 	  /tmp/_fleet-override.yaml \
+	  /tmp/_rhcos-publisher-override.yaml \
 	  > $(PERS_OVERRIDE_FILE)
 .PHONY: latest-services-override
 

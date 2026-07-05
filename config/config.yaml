@@ -745,6 +745,61 @@ defaults:
     registration:
       stampIdentifier: '{{ .ctx.stamp }}'
       autoApproveStamps: true
+  # RHCOS marketplace image publisher
+  rhcosPublisher:
+    enabled: false
+    managedIdentityName: rhcos-publisher
+    image:
+      registry: arohcpsvcdev.azurecr.io
+      repository: rhcos-publisher
+      digest: ""
+    k8s:
+      namespace: rhcos-publisher
+      serviceAccountName: rhcos-publisher
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+        limits:
+          memory: 2Gi
+    storageAccount:
+      name: "arohcp{{ .ctx.environment }}rhcos{{ .ctx.regionShort }}" # [globally-unique]
+    controller:
+      installerCooldown: 1h
+      marketplaceCooldown: 2h
+    marketplace:
+      enabled: false # requires access to the marketplace account (MSIT); INT only
+      publisher: azureopenshift
+      offer: aro4
+    branches:
+    - name: release-4.20
+      rhelVersion: 9
+      armFeatures:
+      - TrustedLaunchSupported
+      x86Features:
+      - TrustedLaunchSupported
+      - HyperVGeneration.V1
+    - name: release-4.21
+      rhelVersion: 9
+      armFeatures:
+      - TrustedLaunchSupported
+      x86Features:
+      - TrustedLaunchSupported
+      - HyperVGeneration.V1
+    - name: release-4.22
+      rhelVersion: 9
+      armFeatures:
+      - TrustedLaunchSupported
+      x86Features:
+      - TrustedLaunchSupported
+      - HyperVGeneration.V1
+    - name: release-4.23
+      rhelVersion: 9
+      armFeatures:
+      - TrustedLaunchSupported
+      x86Features:
+      - TrustedLaunchSupported
+      - HyperVGeneration.V1
   # Admin API
   adminApi:
     audit:

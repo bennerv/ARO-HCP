@@ -461,6 +461,31 @@ resourceGroups:
         resourceGroup: global
         step: output
         name: globalMSIId
+  - name: rhcos-publisher-storage
+    action: ARM
+    template: templates/rhcos-publisher-storage.bicep
+    parameters: configurations/rhcos-publisher-storage.tmpl.bicepparam
+    deploymentLevel: ResourceGroup
+    dependsOn:
+    - resourceGroup: service
+      step: cluster
+  - name: rhcos-publisher-storage-setup
+    action: Shell
+    command: ./rhcos-publisher-storage.sh
+    workingDir: ./scripts
+    variables:
+    - name: StorageAccountName
+      configRef: rhcosPublisher.storageAccount.name
+    - name: DeployRhcosPublisher
+      configRef: rhcosPublisher.enabled
+    dependsOn:
+    - resourceGroup: service
+      step: rhcos-publisher-storage
+    shellIdentity:
+      input:
+        resourceGroup: global
+        step: output
+        name: globalMSIId
   - name: cluster-output
     action: ARM
     template: templates/output-svc-cluster.bicep

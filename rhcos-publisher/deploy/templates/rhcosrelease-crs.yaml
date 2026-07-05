@@ -1,0 +1,23 @@
+{{- if .Values.enabled }}
+{{- range .Values.branches }}
+---
+apiVersion: rhcos.aro.openshift.io/v1alpha1
+kind: RHCOSRelease
+metadata:
+  name: {{ .name | replace "." "-" }}
+  namespace: '{{ $.Release.Namespace }}'
+spec:
+  branch: {{ .name | quote }}
+  rhelVersion: {{ .rhelVersion }}
+  armFeatures:
+{{- range .armFeatures }}
+  - {{ . | quote }}
+{{- else }} []
+{{- end }}
+  x86Features:
+{{- range .x86Features }}
+  - {{ . | quote }}
+{{- else }} []
+{{- end }}
+{{- end }}
+{{- end }}

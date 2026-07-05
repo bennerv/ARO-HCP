@@ -1,0 +1,49 @@
+enabled: {{ .rhcosPublisher.enabled }}
+serviceAccount:
+  name: "{{ .rhcosPublisher.k8s.serviceAccountName }}"
+  workloadIdentityClientId: "__msiClientId__"
+  workloadIdentityTenantId: "__tenantId__"
+pullBinding:
+  registry: "{{ .acr.svc.name }}.azurecr.io"
+  scope: "repository:{{ .rhcosPublisher.image.repository }}:pull"
+  workloadIdentityClientId: "__imagePullerMsiClientId__"
+  workloadIdentityTenantId: "__imagePullerMsiTenantId__"
+image:
+  registry: '{{ .acr.svc.name }}.azurecr.io'
+  repository: '{{ .rhcosPublisher.image.repository }}'
+  digest: '{{ .rhcosPublisher.image.digest }}'
+deployment:
+  resources:
+    requests:
+      cpu: "{{ .rhcosPublisher.k8s.resources.requests.cpu }}"
+      memory: "{{ .rhcosPublisher.k8s.resources.requests.memory }}"
+    limits:
+      memory: "{{ .rhcosPublisher.k8s.resources.limits.memory }}"
+cloudEnvironmentName: '{{ .cloudEnvironmentName }}'
+azure:
+  subscriptionId: "__subscriptionId__"
+  resourceGroup: '{{ .svc.rg }}'
+storage:
+  accountName: '{{ .rhcosPublisher.storageAccount.name }}'
+controller:
+  installerCooldown: '{{ .rhcosPublisher.controller.installerCooldown }}'
+  marketplaceCooldown: '{{ .rhcosPublisher.controller.marketplaceCooldown }}'
+marketplace:
+  enabled: {{ .rhcosPublisher.marketplace.enabled }}
+  publisher: '{{ .rhcosPublisher.marketplace.publisher }}'
+  offer: '{{ .rhcosPublisher.marketplace.offer }}'
+branches:
+{{- range .rhcosPublisher.branches }}
+- name: "{{ .name }}"
+  rhelVersion: {{ .rhelVersion }}
+  armFeatures:
+  {{- range .armFeatures }}
+  - "{{ . }}"
+  {{- else }} []
+  {{- end }}
+  x86Features:
+  {{- range .x86Features }}
+  - "{{ . }}"
+  {{- else }} []
+  {{- end }}
+{{- end }}

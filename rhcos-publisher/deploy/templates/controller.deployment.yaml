@@ -1,0 +1,98 @@
+{{- if .Values.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rhcos-publisher-controller
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: rhcos-publisher-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: rhcos-publisher-controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: rhcos-publisher-controller
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: rhcos-publisher-controller
+        image: '{{ .Values.image.registry }}/{{ .Values.image.repository }}@{{ .Values.image.digest }}'
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: {{ .Values.deployment.resources.requests.cpu }}
+            memory: {{ .Values.deployment.resources.requests.memory }}
+          limits:
+            memory: {{ .Values.deployment.resources.limits.memory }}
+        env:
+        - name: AZURE_TOKEN_CREDENTIALS
+          value: "WorkloadIdentityCredential"
+        args:
+        - controller
+        - --config
+        - /config/config.yaml
+        - --subscription-id
+        - '{{ .Values.azure.subscriptionId }}'
+        - --resource-group
+        - '{{ .Values.azure.resourceGroup }}'
+        - --storage-account-name
+        - '{{ .Values.storage.accountName }}'
+        - --cloud-environment
+        - '{{ .Values.cloudEnvironmentName }}'
+        - --installer-cooldown
+        - '{{ .Values.controller.installerCooldown }}'
+        - --marketplace-cooldown
+        - '{{ .Values.controller.marketplaceCooldown }}'
+        - --marketplace-publish-enabled={{ .Values.marketplace.enabled }}
+        - --work-dir
+        - /work
+        - --kube-namespace
+        - '{{ .Release.Namespace }}'
+        ports:
+        - name: healthz
+          containerPort: 8080
+          protocol: TCP
+        - name: metrics
+          containerPort: 8081
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: healthz
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        volumeMounts:
+        - name: config
+          mountPath: /config
+          readOnly: true
+        - name: work
+          mountPath: /work
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: config
+        configMap:
+          name: rhcos-publisher-config
+      - name: work
+        emptyDir:
+          sizeLimit: 40Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 1Gi
+{{- end }}
