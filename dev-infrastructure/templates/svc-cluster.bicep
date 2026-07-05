@@ -411,6 +411,15 @@ param fleetNamespace string
 @description('The service account name of the Fleet managed identity')
 param fleetServiceAccountName string
 
+@description('The name of the RHCOS publisher managed identity')
+param rhcosPublisherMIName string
+
+@description('The namespace of the RHCOS publisher managed identity')
+param rhcosPublisherNamespace string
+
+@description('The service account name of the RHCOS publisher managed identity')
+param rhcosPublisherServiceAccountName string
+
 @description('Owning team tag value for alert rule routing')
 param owningTeamTagValue string
 
@@ -522,6 +531,11 @@ var workloadIdentities = items({
     uamiName: fleetMIName
     namespace: fleetNamespace
     serviceAccountName: fleetServiceAccountName
+  }
+  rhcos_publisher_wi: {
+    uamiName: rhcosPublisherMIName
+    namespace: rhcosPublisherNamespace
+    serviceAccountName: rhcosPublisherServiceAccountName
   }
 })
 

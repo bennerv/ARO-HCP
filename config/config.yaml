@@ -798,6 +798,41 @@ defaults:
     registration:
       stampIdentifier: '{{ .ctx.stamp }}'
       autoApproveStamps: true
+  # RHCOS marketplace image publisher
+  rhcosPublisher:
+    enabled: false
+    managedIdentityName: rhcos-publisher
+    image:
+      registry: arohcpsvcdev.azurecr.io
+      repository: rhcos-publisher
+      digest: ""
+    k8s:
+      namespace: rhcos-publisher
+      serviceAccountName: rhcos-publisher
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+        limits:
+          memory: 2Gi
+    storageAccount:
+      name: "arohcp{{ .ctx.environment }}rhcos{{ .ctx.regionShort }}" # [globally-unique]
+    controller:
+      installerCooldown: 1h
+      marketplaceCooldown: 2h
+    marketplace:
+      enabled: false # requires access to the marketplace account (MSIT); INT only
+      publisher: azureopenshift
+      offer: aro4
+    branches:
+    - name: release-5.0
+      rhelVersions:
+      - 9
+      - 10
+      armFeatures:
+      - TrustedLaunchSupported
+      x86Features:
+      - TrustedLaunchSupported
   # Admin API
   adminApi:
     audit:
@@ -1549,6 +1584,8 @@ clouds:
                   zones: '1'
         # this is the personal DEV environment
         defaults:
+          rhcosPublisher:
+            enabled: true
           kusto:
             manageInstance: false
           # Service Key Vault

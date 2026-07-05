@@ -1,0 +1,13 @@
+{{- if .Values.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rhcos-publisher-work
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+{{- end }}

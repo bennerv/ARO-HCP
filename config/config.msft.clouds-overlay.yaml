@@ -16,6 +16,13 @@ clouds:
           mise:
             audit:
               connectSocket: true
+          # RHCOS marketplace image publisher — runs in INT only: the
+          # marketplace draft configuration requires Microsoft IP address
+          # space and the MSIT marketplace account.
+          rhcosPublisher:
+            enabled: true
+            marketplace:
+              enabled: true
           # Prometheus mgmt-cluster survival tuning (AROSLSRE-1553/1554/1555).
           # A single prom-agent OOM-crashloop blacked out int-uksouth-mgmt-1 for
           # ~37h. Mitigations, all scoped to the INT mgmt clusters:
