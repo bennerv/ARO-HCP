@@ -113,6 +113,10 @@ param fleetMIName = '{{ .fleet.managedIdentityName }}'
 param fleetNamespace = '{{ .fleet.k8s.namespace }}'
 param fleetServiceAccountName = '{{ .fleet.k8s.serviceAccountName }}'
 
+param rhcosPublisherMIName = '{{ .rhcosPublisher.managedIdentityName }}'
+param rhcosPublisherNamespace = '{{ .rhcosPublisher.k8s.namespace }}'
+param rhcosPublisherServiceAccountName = '{{ .rhcosPublisher.k8s.serviceAccountName }}'
+
 // ACR Resource IDs
 param ocpAcrResourceId = '__ocpAcrResourceId__'
 param svcAcrResourceId = '__svcAcrResourceId__'

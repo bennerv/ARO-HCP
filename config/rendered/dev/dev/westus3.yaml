@@ -866,6 +866,60 @@ quotaizer:
     id: aro-dev-westus3
 region: westus3
 regionRG: hcp-underlay-dev-westus3
+rhcosPublisher:
+  branches:
+  - armFeatures:
+    - TrustedLaunchSupported
+    name: release-4.20
+    rhelVersion: 9
+    x86Features:
+    - TrustedLaunchSupported
+    - HyperVGeneration.V1
+  - armFeatures:
+    - TrustedLaunchSupported
+    name: release-4.21
+    rhelVersion: 9
+    x86Features:
+    - TrustedLaunchSupported
+    - HyperVGeneration.V1
+  - armFeatures:
+    - TrustedLaunchSupported
+    name: release-4.22
+    rhelVersion: 9
+    x86Features:
+    - TrustedLaunchSupported
+    - HyperVGeneration.V1
+  - armFeatures:
+    - TrustedLaunchSupported
+    name: release-4.23
+    rhelVersion: 9
+    x86Features:
+    - TrustedLaunchSupported
+    - HyperVGeneration.V1
+  controller:
+    installerCooldown: 1h
+    marketplaceCooldown: 2h
+  enabled: false
+  image:
+    digest: ""
+    registry: arohcpsvcdev.azurecr.io
+    repository: rhcos-publisher
+  k8s:
+    namespace: rhcos-publisher
+    resources:
+      limits:
+        memory: 2Gi
+      requests:
+        cpu: 200m
+        memory: 512Mi
+    serviceAccountName: rhcos-publisher
+  managedIdentityName: rhcos-publisher
+  marketplace:
+    enabled: false
+    offer: aro4
+    publisher: azureopenshift
+  storageAccount:
+    name: arohcpdevrhcosusw3
 secretSyncController:
   image:
     digest: sha256:72abeb657cfbdd6a5891fc102a16429875d70c5932ad5994524d0246db914013

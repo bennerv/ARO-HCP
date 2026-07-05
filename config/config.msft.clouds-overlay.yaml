@@ -18,6 +18,13 @@ clouds:
           frontend:
             audit:
               connectSocket: true
+          # RHCOS marketplace image publisher — runs in INT only: the
+          # marketplace draft configuration requires Microsoft IP address
+          # space and the MSIT marketplace account.
+          rhcosPublisher:
+            enabled: true
+            marketplace:
+              enabled: true
       stg:
         # this is the MSFT STAGE environment
         defaults:

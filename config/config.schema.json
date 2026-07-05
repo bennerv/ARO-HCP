@@ -1486,6 +1486,131 @@
         "registration"
       ]
     },
+    "rhcosPublisher": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the rhcos-publisher controller and its staging storage account are deployed"
+        },
+        "image": {
+          "$ref": "#/definitions/containerImage"
+        },
+        "managedIdentityName": {
+          "type": "string",
+          "description": "The name of the MSI used by the rhcos-publisher to access storage and the marketplace"
+        },
+        "k8s": {
+          "$ref": "#/definitions/k8sDeployment"
+        },
+        "storageAccount": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "pattern": "^[a-z0-9]{3,24}$",
+              "description": "The name of the storage account hosting staged RHCOS VHDs on its static website"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        "controller": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "installerCooldown": {
+              "type": "string",
+              "description": "Go duration between coreos stream metadata polls"
+            },
+            "marketplaceCooldown": {
+              "type": "string",
+              "description": "Go duration between marketplace image version polls"
+            }
+          },
+          "required": [
+            "installerCooldown",
+            "marketplaceCooldown"
+          ]
+        },
+        "marketplace": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether marketplace drafts are configured via the Partner Center Product Ingestion API (requires marketplace account access)"
+            },
+            "publisher": {
+              "type": "string",
+              "description": "The marketplace publisher ID"
+            },
+            "offer": {
+              "type": "string",
+              "description": "The marketplace offer ID"
+            }
+          },
+          "required": [
+            "enabled",
+            "publisher",
+            "offer"
+          ]
+        },
+        "branches": {
+          "type": "array",
+          "description": "The OCP release branches whose RHCOS images are mirrored to the marketplace",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^release-\\d+\\.\\d+$",
+                "description": "The openshift/installer branch name"
+              },
+              "rhelVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "The major RHEL version of the coreos stream used by the branch"
+              },
+              "armFeatures": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Marketplace plan features of the aarch64 images"
+              },
+              "x86Features": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Marketplace plan features of the x86_64 images"
+              }
+            },
+            "required": [
+              "name",
+              "rhelVersion",
+              "armFeatures",
+              "x86Features"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "image",
+        "managedIdentityName",
+        "k8s",
+        "storageAccount",
+        "controller",
+        "marketplace",
+        "branches"
+      ]
+    },
     "adminApi": {
       "type": "object",
       "properties": {
@@ -3504,6 +3629,7 @@
     "mgmt",
     "mgmtAgent",
     "fleet",
+    "rhcosPublisher",
     "kubeApplier",
     "mgmtKeyVault",
     "monitoring",

@@ -12,6 +12,7 @@ use (
 	./internal
 	./kube-applier
 	./mgmt-agent
+	./rhcos-publisher
 	./sessiongate
 	./test
 	./test-integration

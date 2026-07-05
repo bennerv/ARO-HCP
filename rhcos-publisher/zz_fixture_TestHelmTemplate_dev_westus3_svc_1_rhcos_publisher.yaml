@@ -1,0 +1,113 @@
+---
+# Source: rhcos-publisher/templates/rhcosrelease-crd.yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: rhcosreleases.rhcos.aro.openshift.io
+spec:
+  group: rhcos.aro.openshift.io
+  names:
+    kind: RHCOSRelease
+    listKind: RHCOSReleaseList
+    plural: rhcosreleases
+    singular: rhcosrelease
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    additionalPrinterColumns:
+    - name: Branch
+      type: string
+      jsonPath: .spec.branch
+    - name: RHEL
+      type: integer
+      jsonPath: .spec.rhelVersion
+    - name: x86_64
+      type: string
+      jsonPath: .status.architectures.x86_64.phase
+    - name: aarch64
+      type: string
+      jsonPath: .status.architectures.aarch64.phase
+    - name: Age
+      type: date
+      jsonPath: .metadata.creationTimestamp
+    schema:
+      openAPIV3Schema:
+        description: |-
+          RHCOSRelease tracks the RHCOS Azure images of one OCP release branch
+          and their progress towards the ARO 1P marketplace. The resources are
+          created by the rhcos-publisher Helm chart (one per configured
+          branch); the controller only ever writes the status subresource.
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: spec identifies the release branch and the marketplace features of its images.
+            properties:
+              branch:
+                description: branch is the openshift/installer branch to poll for coreos stream metadata, e.g. "release-4.22".
+                type: string
+                pattern: '^release-\d+\.\d+$'
+              rhelVersion:
+                description: rhelVersion is the major RHEL version of the coreos stream used by the branch (e.g. 9 selects coreos-rhel-9.json).
+                type: integer
+                minimum: 1
+              armFeatures:
+                description: armFeatures are the marketplace plan features of the aarch64 images.
+                type: array
+                items:
+                  type: string
+              x86Features:
+                description: x86Features are the marketplace plan features of the x86_64 images.
+                type: array
+                items:
+                  type: string
+            required:
+            - branch
+            - rhelVersion
+            type: object
+          status:
+            description: status contains the per-architecture publishing state observed by the controller.
+            properties:
+              architectures:
+                description: architectures maps a coreos architecture name ("x86_64", "aarch64") to the publishing state of its current image.
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    release:
+                      description: release is the RHCOS release version currently being tracked, e.g. "9.8.20260520-0".
+                      type: string
+                    stagedURL:
+                      description: stagedURL is the public static-website URL of the staged VHD.
+                      type: string
+                    phase:
+                      description: 'phase is the publishing lifecycle phase: staged, draft or published.'
+                      type: string
+                      enum:
+                      - staged
+                      - draft
+                      - published
+                    configureJobId:
+                      description: configureJobId is the Partner Center Product Ingestion API job that configured the marketplace draft.
+                      type: string
+              lastInstallerSync:
+                description: lastInstallerSync is when the installer lister last successfully fetched the branch's coreos stream metadata.
+                type: string
+                format: date-time
+              lastMarketplaceSync:
+                description: lastMarketplaceSync is when the marketplace lister last successfully queried the branch's marketplace SKUs.
+                type: string
+                format: date-time
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+

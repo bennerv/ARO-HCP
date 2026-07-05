@@ -1,0 +1,27 @@
+{{- if .Values.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rhcos-publisher-config
+  namespace: '{{ .Release.Namespace }}'
+data:
+  config.yaml: |
+    marketplace:
+      publisher: {{ .Values.marketplace.publisher | quote }}
+      offer: {{ .Values.marketplace.offer | quote }}
+    branches:
+{{- range .Values.branches }}
+    - name: {{ .name | quote }}
+      rhelVersion: {{ .rhelVersion }}
+      armFeatures:
+{{- range .armFeatures }}
+      - {{ . | quote }}
+{{- else }} []
+{{- end }}
+      x86Features:
+{{- range .x86Features }}
+      - {{ . | quote }}
+{{- else }} []
+{{- end }}
+{{- end }}
+{{- end }}
