@@ -46,6 +46,8 @@ ResourceMemoryLimitsAllowlist:
 - DaemonSet/arobit-forwarder/fluentbit # arobit-fluentbit standing exemption
 - DaemonSet/*/fluentbit # arobit-fluentbit standing exemption (pattern match)
 # Config unlimited / NONE sentinels
+- Deployment/admin-api/* # config sets memory: unlimited
+- Deployment/admin-api-readonly/* # config sets memory: unlimited
 - Deployment/aro-hcp-exporter/* # config sets memory: unlimited
 - Deployment/kube-events/* # config sets memory: unlimited
 - Deployment/sessiongate/* # config sets memory: unlimited

@@ -780,6 +780,10 @@ defaults:
       repository: arohcpadminapi
       digest: sha256:6f7cd7e77ae5ca7cf9231b9479211a0430a071c763d9540d769a2f40d9d78c57 # a4302d6 (2026-05-29 22:33)
     managedIdentityName: admin-api
+    readonly:
+      managedIdentityName: admin-api-readonly
+      k8s:
+        serviceAccountName: admin-api-readonly
     k8s:
       replicas: 2
       namespace: aro-hcp-admin-api

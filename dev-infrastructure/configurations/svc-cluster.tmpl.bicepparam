@@ -110,6 +110,8 @@ param adminApiNamespace = '{{ .adminApi.k8s.namespace }}'
 param adminApiServiceAccountName = '{{ .adminApi.k8s.serviceAccountName }}'
 param adminApiIngressCertName = '{{ .adminApi.cert.name }}'
 param adminApiIngressCertSAN = '{{ .adminApi.cert.san }}'
+param adminApiReadonlyMIName = '{{ .adminApi.readonly.managedIdentityName }}'
+param adminApiReadonlyServiceAccountName = '{{ .adminApi.readonly.k8s.serviceAccountName }}'
 
 param fleetMIName = '{{ .fleet.managedIdentityName }}'
 param fleetNamespace = '{{ .fleet.k8s.namespace }}'

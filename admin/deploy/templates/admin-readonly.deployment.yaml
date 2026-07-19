@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-api-readonly
+  namespace: '{{ .Release.Namespace }}'
+  labels:
+    app: admin-api-readonly
+spec:
+  replicas: {{ .Values.readonly.deployment.replicas }}
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: admin-api-readonly
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: admin-api-readonly
+        azure.workload.identity/use: "true"
+    spec:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: '{{ if eq (int .Values.deployment.zoneCount) 0 }}kubernetes.azure.com/agentpool{{ else }}topology.kubernetes.io/zone{{ end }}'
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: admin-api-readonly
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: admin-api-readonly
+      serviceAccountName: {{ .Values.readonly.serviceAccount.name }}
+      containers:
+      - name: service
+        image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}@{{ .Values.image.digest }}"
+        imagePullPolicy: IfNotPresent
+        command:
+        - aro-hcp-admin
+        - serve-readonly
+        args:
+        - "--location"
+        - "{{ .Values.location }}"
+        env:
+        - name: COSMOS_URL
+          value: "{{ .Values.cosmosDB.url }}"
+        - name: COSMOS_NAME
+          value: "{{ .Values.cosmosDB.name }}"
+        - name: AUDIT_CONNECT_SOCKET
+          value: "{{ .Values.audit.connectSocket }}"
+        - name: AZURE_TOKEN_CREDENTIALS
+          value: "WorkloadIdentityCredential"
+        ports:
+        - containerPort: 8443
+          name: http
+          protocol: TCP
+        - containerPort: 8444
+          name: metrics
+          protocol: TCP
+        resources:
+          requests:
+            cpu: {{ .Values.readonly.deployment.resources.requests.cpu }}
+            memory: {{ .Values.readonly.deployment.resources.requests.memory }}
+{{- if ne .Values.readonly.deployment.resources.limits.memory "unlimited" }}
+          limits:
+            memory: {{ .Values.readonly.deployment.resources.limits.memory }}
+{{- end }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          runAsUser: 65532
+          runAsGroup: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        livenessProbe:
+          httpGet:
+            path: /healthz/live
+            port: 8444
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /healthz/ready
+            port: 8444
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        {{- if .Values.audit.connectSocket }}
+        volumeMounts:
+        - name: mdsd-asa-run-vol
+          mountPath: /var/run/mdsd
+        {{- end }}
+      {{- if .Values.audit.connectSocket }}
+      volumes:
+      - name: mdsd-asa-run-vol
+        hostPath:
+          path: /var/run/mdsd
+          type: Directory
+      {{- end }}

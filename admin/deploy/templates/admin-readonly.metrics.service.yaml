@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aro-hcp-admin-api-readonly-metrics
+  namespace: '{{ .Release.Namespace }}'
+  labels:
+    app: admin-api-readonly-metrics
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8444
+    targetPort: metrics
+    protocol: TCP
+    name: metrics
+  selector:
+    app: admin-api-readonly

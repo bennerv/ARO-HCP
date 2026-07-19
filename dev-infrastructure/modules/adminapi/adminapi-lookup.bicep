@@ -1,6 +1,9 @@
 @description('The name of the AdminAPI MSI')
 param adminApiMsiName string
 
+@description('The name of the AdminAPI read-only MSI')
+param adminApiReadonlyMsiName string
+
 @description('The name of the Image Puller MSI')
 param imagePullerMsiName string
 
@@ -24,6 +27,13 @@ resource adminApiIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023
 
 output tenantId string = tenant().tenantId
 output adminApiMsiClientId string = adminApiIdentity.properties.clientId
+
+resource adminApiReadonlyIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
+  scope: resourceGroup()
+  name: adminApiReadonlyMsiName
+}
+
+output adminApiReadonlyMsiClientId string = adminApiReadonlyIdentity.properties.clientId
 
 resource imagePullerIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
   scope: resourceGroup()

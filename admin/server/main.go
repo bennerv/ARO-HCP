@@ -20,6 +20,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/Azure/ARO-HCP/admin/server/cmd/readonly"
 	"github.com/Azure/ARO-HCP/admin/server/cmd/server"
 	"github.com/Azure/ARO-HCP/admin/server/pkg/logging"
 	"github.com/Azure/ARO-HCP/internal/version"
@@ -40,6 +41,7 @@ func main() {
 
 	commands := []func() (*cobra.Command, error){
 		server.NewCommand,
+		readonly.NewCommand,
 	}
 	for _, newCmd := range commands {
 		c, err := newCmd()

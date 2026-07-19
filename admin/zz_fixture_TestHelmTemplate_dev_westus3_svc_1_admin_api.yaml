@@ -1,4 +1,17 @@
 ---
+# Source: ARO HCP Admin API/templates/admin-readonly.poddisruptionbudget.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: admin-api-readonly
+  namespace: 'aro-hcp-admin-api'
+spec:
+  minAvailable: 1
+  unhealthyPodEvictionPolicy: AlwaysAllow
+  selector:
+    matchLabels:
+      app: admin-api-readonly
+---
 # Source: ARO HCP Admin API/templates/admin.poddisruptionbudget.yaml
 apiVersion: policy/v1
 kind: PodDisruptionBudget
@@ -11,6 +24,16 @@ spec:
   selector:
     matchLabels:
       app: admin-api
+---
+# Source: ARO HCP Admin API/templates/admin-readonly.serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-api-readonly
+  namespace: 'aro-hcp-admin-api'
+  annotations:
+    azure.workload.identity/client-id: '__adminApiReadonlyMsiClientId__'
+    azure.workload.identity/tenant-id: '__tenantId__'
 ---
 # Source: ARO HCP Admin API/templates/admin.serviceaccount.yaml
 apiVersion: v1
@@ -36,6 +59,42 @@ subjects:
 - kind: ServiceAccount
   name: admin-api
   namespace: 'aro-hcp-admin-api'
+---
+# Source: ARO HCP Admin API/templates/admin-readonly.metrics.service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: aro-hcp-admin-api-readonly-metrics
+  namespace: 'aro-hcp-admin-api'
+  labels:
+    app: admin-api-readonly-metrics
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8444
+    targetPort: metrics
+    protocol: TCP
+    name: metrics
+  selector:
+    app: admin-api-readonly
+---
+# Source: ARO HCP Admin API/templates/admin-readonly.service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-api-readonly
+  namespace: 'aro-hcp-admin-api'
+  labels:
+    app: admin-api-readonly
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8443
+    targetPort: http
+    protocol: TCP
+    name: https
+  selector:
+    app: admin-api-readonly
 ---
 # Source: ARO HCP Admin API/templates/admin.metrics.service.yaml
 apiVersion: v1
@@ -69,6 +128,99 @@ spec:
   - port: 8443
     targetPort: 8443
     protocol: TCP
+---
+# Source: ARO HCP Admin API/templates/admin-readonly.deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-api-readonly
+  namespace: 'aro-hcp-admin-api'
+  labels:
+    app: admin-api-readonly
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: admin-api-readonly
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: admin-api-readonly
+        azure.workload.identity/use: "true"
+    spec:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: 'topology.kubernetes.io/zone'
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: admin-api-readonly
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: admin-api-readonly
+      serviceAccountName: admin-api-readonly
+      containers:
+      - name: service
+        image: "arohcpsvcdev.azurecr.io/arohcpadminapi@sha256:1234567890"
+        imagePullPolicy: IfNotPresent
+        command:
+        - aro-hcp-admin
+        - serve-readonly
+        args:
+        - "--location"
+        - "westus3"
+        env:
+        - name: COSMOS_URL
+          value: "__cosmosDBDocumentEndpoint__"
+        - name: COSMOS_NAME
+          value: "arohcpdev-rp-usw3"
+        - name: AUDIT_CONNECT_SOCKET
+          value: "false"
+        - name: AZURE_TOKEN_CREDENTIALS
+          value: "WorkloadIdentityCredential"
+        ports:
+        - containerPort: 8443
+          name: http
+          protocol: TCP
+        - containerPort: 8444
+          name: metrics
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          runAsUser: 65532
+          runAsGroup: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        livenessProbe:
+          httpGet:
+            path: /healthz/live
+            port: 8444
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /healthz/ready
+            port: 8444
+          initialDelaySeconds: 5
+          periodSeconds: 10
 ---
 # Source: ARO HCP Admin API/templates/admin.deployment.yaml
 apiVersion: apps/v1
@@ -264,6 +416,19 @@ spec:
   - matches:
     - path:
         type: PathPrefix
+        value: /admin/v1/cosmos/
+    filters:
+    - type: RequestHeaderModifier
+      requestHeaderModifier:
+        add:
+        - name: mise-inbound-policies-to-filter
+          value: "Geneva Actions"
+    backendRefs:
+    - name: admin-api-readonly
+      port: 8443
+  - matches:
+    - path:
+        type: PathPrefix
         value: /
     filters:
     - type: RequestHeaderModifier
@@ -345,6 +510,25 @@ spec:
     - objectName: admin-api-cert
       key: tls.key
 ---
+# Source: ARO HCP Admin API/templates/admin-readonly.servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: aro-hcp-admin-api-readonly
+  namespace: 'aro-hcp-admin-api'
+spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: metrics
+    scheme: http
+  namespaceSelector:
+    matchNames:
+    - 'aro-hcp-admin-api'
+  selector:
+    matchLabels:
+      app: admin-api-readonly-metrics
+---
 # Source: ARO HCP Admin API/templates/admin.servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -376,6 +560,42 @@ spec:
   gateways:
   - aks-istio-ingress/aro-hcp-gateway-external
   http:
+  - match:
+    - uri:
+        prefix: /admin/v1/cosmos/
+    headers:
+      request:
+        add:
+          mise-inbound-policies-to-filter: "Geneva Actions"
+    route:
+    - destination:
+        host: admin-api-readonly
+        port:
+          number: 8443
+  - match:
+    - uri:
+        regex: '/admin/v1/hcp/.+/cosmosdump'
+    headers:
+      request:
+        add:
+          mise-inbound-policies-to-filter: "Geneva Actions"
+    route:
+    - destination:
+        host: admin-api-readonly
+        port:
+          number: 8443
+  - match:
+    - uri:
+        regex: '/admin/v1/hcp/.+/billingdump'
+    headers:
+      request:
+        add:
+          mise-inbound-policies-to-filter: "Geneva Actions"
+    route:
+    - destination:
+        host: admin-api-readonly
+        port:
+          number: 8443
   - match:
     - uri:
         regex: '.+'

@@ -51,6 +51,10 @@ adminApi:
         memory: 512Mi
     serviceAccountName: admin-api
   managedIdentityName: admin-api
+  readonly:
+    k8s:
+      serviceAccountName: admin-api-readonly
+    managedIdentityName: admin-api-readonly
 administration:
   readerGroupId: ""
   releaseManagementGroupId: ""

@@ -83,6 +83,10 @@ resourceGroups:
         resourceGroup: service
         step: output
         name: adminApiMsiClientId
+      adminApiReadonlyMsiClientId:
+        resourceGroup: service
+        step: output
+        name: adminApiReadonlyMsiClientId
       imagePullerMsiClientId:
         resourceGroup: service
         step: output

@@ -11,6 +11,42 @@ spec:
   http:
   - match:
     - uri:
+        prefix: /admin/v1/cosmos/
+    headers:
+      request:
+        add:
+          mise-inbound-policies-to-filter: "{{ .Values.mise.policyLabel }}"
+    route:
+    - destination:
+        host: {{ .Values.readonly.service.name }}
+        port:
+          number: {{ .Values.readonly.service.port }}
+  - match:
+    - uri:
+        regex: '/admin/v1/hcp/.+/cosmosdump'
+    headers:
+      request:
+        add:
+          mise-inbound-policies-to-filter: "{{ .Values.mise.policyLabel }}"
+    route:
+    - destination:
+        host: {{ .Values.readonly.service.name }}
+        port:
+          number: {{ .Values.readonly.service.port }}
+  - match:
+    - uri:
+        regex: '/admin/v1/hcp/.+/billingdump'
+    headers:
+      request:
+        add:
+          mise-inbound-policies-to-filter: "{{ .Values.mise.policyLabel }}"
+    route:
+    - destination:
+        host: {{ .Values.readonly.service.name }}
+        port:
+          number: {{ .Values.readonly.service.port }}
+  - match:
+    - uri:
         regex: '.+'
     headers:
       request:

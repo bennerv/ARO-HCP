@@ -31,9 +31,11 @@ import (
 	"k8s.io/utils/set"
 
 	"github.com/Azure/azure-kusto-go/kusto"
+	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 
 	"github.com/Azure/ARO-HCP/admin/server/handlers"
 	"github.com/Azure/ARO-HCP/admin/server/handlers/cosmosdump"
+	"github.com/Azure/ARO-HCP/admin/server/handlers/cosmosquery"
 	"github.com/Azure/ARO-HCP/admin/server/handlers/hcp"
 	breakglasshandlers "github.com/Azure/ARO-HCP/admin/server/handlers/hcp/breakglass"
 	stamphandlers "github.com/Azure/ARO-HCP/admin/server/handlers/stamp"
@@ -68,6 +70,7 @@ func NewAdminAPI(
 	location string,
 	listener net.Listener,
 	metricsListener net.Listener,
+	cosmosDatabaseClient *azcosmos.DatabaseClient,
 	resourcesDBClient database.ResourcesDBClient,
 	billingDBClient database.BillingDBClient,
 	fleetDBClient database.FleetDBClient,
@@ -140,6 +143,10 @@ func NewAdminAPI(
 	middlewareMux.Handle("POST /admin/v1/stamps/{stampIdentifier}/approval",
 		errorutils.ReportError(stamphandlers.NewStampApprovalHandler(fleetDBClient).ServeHTTP))
 
+	// CosmosDB query route
+	middlewareMux.Handle("POST /admin/v1/cosmos/query",
+		errorutils.ReportError(cosmosquery.NewQueryHandler(cosmosDatabaseClient).ServeHTTP))
+
 	// Top-level mux (healthz bypasses all middleware)
 	apiMux := http.NewServeMux()
 	apiMux.HandleFunc("GET /healthz/ready", healthzReadyHandler)
@@ -176,6 +183,73 @@ func NewAdminAPI(
 		clustersServiceClient:  clustersServiceClient,
 		kustoClient:            kustoClient,
 		fpaCredentialRetriever: fpaCredentialRetriever,
+	}
+}
+
+func NewReadOnlyAdminAPI(
+	logger logr.Logger,
+	location string,
+	listener net.Listener,
+	metricsListener net.Listener,
+	cosmosDatabaseClient *azcosmos.DatabaseClient,
+	resourcesDBClient database.ResourcesDBClient,
+	billingDBClient database.BillingDBClient,
+	auditClient audit.Client,
+	gatherer prometheus.Gatherer,
+) *AdminAPI {
+	middlewareMux := middleware.NewMiddlewareMux(
+		middleware.MiddlewareLogger,
+		middleware.MiddlewareLowercase,
+		middleware.NewMiddlewareAudit(auditClient).HandleRequest,
+		middleware.MiddlewareClientPrincipal,
+	)
+
+	hcpMiddleware := middleware.NewMiddleware(
+		middleware.MiddlewareHCPResourceID,
+	)
+	middlewareMux.Handle(
+		middleware.V1HCPResourcePattern("GET", "/cosmosdump"),
+		hcpMiddleware.HandlerFunc(errorutils.ReportError(cosmosdump.NewCosmosDumpHandler(resourcesDBClient).ServeHTTP)),
+	)
+	middlewareMux.Handle(
+		middleware.V1HCPResourcePattern("GET", "/billingdump"),
+		hcpMiddleware.HandlerFunc(errorutils.ReportError(cosmosdump.NewBillingDumpHandler(resourcesDBClient, billingDBClient).ServeHTTP)),
+	)
+
+	middlewareMux.Handle("POST /admin/v1/cosmos/query",
+		errorutils.ReportError(cosmosquery.NewQueryHandler(cosmosDatabaseClient).ServeHTTP))
+	middlewareMux.Handle("POST /admin/v1/cosmos/write-check",
+		errorutils.ReportError(cosmosquery.NewWriteCheckHandler(cosmosDatabaseClient).ServeHTTP))
+
+	apiMux := http.NewServeMux()
+	apiMux.HandleFunc("GET /healthz/ready", healthzReadyHandler)
+	apiMux.HandleFunc("GET /healthz/live", healthzLiveHandler)
+	apiMux.HandleFunc("/", middlewareMux.ServeHTTP)
+
+	metricsMux := http.NewServeMux()
+	metricsMux.Handle("GET /metrics", promhttp.HandlerFor(gatherer, promhttp.HandlerOpts{}))
+	metricsMux.HandleFunc("GET /healthz/ready", healthzReadyHandler)
+	metricsMux.HandleFunc("GET /healthz/live", healthzLiveHandler)
+
+	return &AdminAPI{
+		location:        location,
+		listener:        listener,
+		metricsListener: metricsListener,
+		server: http.Server{
+			BaseContext: func(net.Listener) context.Context {
+				ctx := context.Background()
+				ctx = utils.ContextWithLogger(ctx, logger)
+				return ctx
+			},
+			Handler: apiMux,
+		},
+		metricsServer: http.Server{
+			BaseContext: func(net.Listener) context.Context {
+				return utils.ContextWithLogger(context.Background(), logger)
+			},
+			Handler: metricsMux,
+		},
+		resourcesDBClient: resourcesDBClient,
 	}
 }
 

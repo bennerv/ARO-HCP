@@ -37,6 +37,22 @@ httpRoute:
 service:
   name: "admin-api"
   port: 8443
+readonly:
+  serviceAccount:
+    name: "{{ .adminApi.readonly.k8s.serviceAccountName }}"
+    workloadIdentityClientId: "__adminApiReadonlyMsiClientId__"
+    workloadIdentityTenantId: "__tenantId__"
+  deployment:
+    replicas: {{ .adminApi.k8s.replicas }}
+    resources:
+      requests:
+        cpu: "{{ .adminApi.k8s.resources.requests.cpu }}"
+        memory: "{{ .adminApi.k8s.resources.requests.memory }}"
+      limits:
+        memory: "{{ .adminApi.k8s.resources.limits.memory }}"
+  service:
+    name: "admin-api-readonly"
+    port: 8443
 # TLS Credentials
 credsKeyVault:
   name: "{{ .serviceKeyVault.name }}"

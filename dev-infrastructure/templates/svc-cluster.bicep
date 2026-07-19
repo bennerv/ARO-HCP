@@ -402,6 +402,12 @@ param adminApiIngressCertName string
 @description('The SAN and CN for the admin API ingress certificate')
 param adminApiIngressCertSAN string
 
+@description('The name of the Admin API read-only managed identity')
+param adminApiReadonlyMIName string
+
+@description('The service account name of the Admin API read-only managed identity')
+param adminApiReadonlyServiceAccountName string
+
 @description('The name of the Fleet managed identity')
 param fleetMIName string
 
@@ -504,6 +510,11 @@ var workloadIdentities = items({
     uamiName: adminApiMIName
     namespace: adminApiNamespace
     serviceAccountName: adminApiServiceAccountName
+  }
+  admin_api_readonly_wi: {
+    uamiName: adminApiReadonlyMIName
+    namespace: adminApiNamespace
+    serviceAccountName: adminApiReadonlyServiceAccountName
   }
   sessiongate_wi: {
     uamiName: sessiongateMIName
@@ -759,6 +770,7 @@ module underlayClusterMetric '../modules/metrics/underlay-clusters-metric.bicep'
 var frontendMI = mi.getManagedIdentityByName(managedIdentities.outputs.managedIdentities, frontendMIName)
 var backendMI = mi.getManagedIdentityByName(managedIdentities.outputs.managedIdentities, backendMIName)
 var adminApiMI = mi.getManagedIdentityByName(managedIdentities.outputs.managedIdentities, adminApiMIName)
+var adminApiReadonlyMI = mi.getManagedIdentityByName(managedIdentities.outputs.managedIdentities, adminApiReadonlyMIName)
 var fleetMI = mi.getManagedIdentityByName(managedIdentities.outputs.managedIdentities, fleetMIName)
 
 module rpCosmosDb '../modules/rp-cosmos.bicep' = if (rpCosmosDbAccountId != '') {
@@ -767,6 +779,7 @@ module rpCosmosDb '../modules/rp-cosmos.bicep' = if (rpCosmosDbAccountId != '') 
   params: {
     cosmosDBAccountName: rpCosmosDbName
     userAssignedMIs: [frontendMI, backendMI, adminApiMI, fleetMI]
+    readOnlyUserAssignedMIs: [adminApiReadonlyMI]
     resourceContainerMaxScale: resourceContainerMaxScale
     billingContainerMaxScale: billingContainerMaxScale
     locksContainerMaxScale: locksContainerMaxScale

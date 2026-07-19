@@ -1283,9 +1283,9 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RedHatOpenShift/hcpOpenShiftClusters/{hcpOpenShiftClusterName}/requestAdminCredential": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RedHatOpenShift/hcpOpenShiftClusters/{hcpOpenShiftClusterName}/requestAdminCredentialWithBody": {
       "post": {
-        "operationId": "HcpOpenShiftClusters_RequestAdminCredential",
+        "operationId": "HcpOpenShiftClusters_RequestAdminCredentialWithBody",
         "tags": [
           "HcpOpenShiftClusters"
         ],
@@ -1307,6 +1307,15 @@
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z]([-a-zA-Z0-9]{0,52}[a-zA-Z0-9])?$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HcpOpenShiftClusterAdminCredentialRequest"
+            }
           }
         ],
         "responses": {
@@ -1335,11 +1344,6 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "HcpOpenShiftClusters_RequestAdminCredential_MaximumSet": {
-            "$ref": "./examples/HcpOpenShiftClusters_RequestAdminCredential_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -2192,6 +2196,19 @@
       "required": [
         "kubeconfig",
         "expirationTimestamp"
+      ]
+    },
+    "HcpOpenShiftClusterAdminCredentialRequest": {
+      "type": "object",
+      "description": "Request body for requesting admin credentials",
+      "properties": {
+        "csr": {
+          "type": "string",
+          "description": "The client certificate signing request (PEM-encoded)"
+        }
+      },
+      "required": [
+        "csr"
       ]
     },
     "HcpOpenShiftClusterListResult": {
