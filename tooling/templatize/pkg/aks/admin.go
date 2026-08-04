@@ -180,7 +180,7 @@ func assignClusterAdminRBACRole(ctx context.Context, subscriptionID, resourceGro
 		var respErr *azcore.ResponseError
 		if errors.As(err, &respErr) && respErr.ErrorCode == "RoleAssignmentExists" {
 			// we could check if the roleassignment exists upfront but even when
-			// the role exists, checking for it is not always reliably detect it
+			// the role exists, checking for it does not always reliably detect it
 			// so there is no point why we should check.
 			return nil
 		}

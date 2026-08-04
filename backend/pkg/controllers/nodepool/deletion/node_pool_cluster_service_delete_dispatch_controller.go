@@ -181,7 +181,7 @@ func (c *nodePoolClusterServiceDeleteDispatchSyncer) SyncOnce(ctx context.Contex
 			strings.Contains(ocmError.Reason(), "Cannot delete node pool: its parent cluster must be in a deletable state") &&
 			strings.Contains(ocmError.Reason(), "Parent cluster state: 'uninstalling'"):
 			// If the error is indicating that the parent cluster is already being
-			// uninstalled we consider that the the nodepool is already being deleted
+			// uninstalled we consider that the nodepool is already being deleted
 			// because Cluster Service on cluster deletion will end up deleting the
 			// nodepools as well.
 			// Matching an error message is brittle, but Clusters Service

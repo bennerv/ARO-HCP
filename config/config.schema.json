@@ -20,7 +20,7 @@
       "minLength": 1,
       "maxLength": 243,
       "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$",
-      "description": "A valid RFC1123 DNS subdomain. Multiple RFC1123 DNS label devided by a dot."
+      "description": "A valid RFC1123 DNS subdomain. Multiple RFC1123 DNS label divided by a dot."
     },
     "intOrString": {
       "description": "THIS IS CURRENTLY NOT COMPATIBLE WITH SERVICE-STATUS. IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type. This allows you to have, for example, a JSON field that can accept a name or number.",
@@ -176,7 +176,7 @@
       "minLength": 3,
       "maxLength": 44,
       "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$",
-      "description": "Server name must only contain lowercase letters, numbers, and hyphens. The server name must not start or end in a hyphen. Name must be between 3 be 63 characters long but we limited to 44 characters so we have a future option to use NSP: https://learn.microsoft.com/en-us/azure/private-link/network-security-perimeter-concepts"
+      "description": "Server name must only contain lowercase letters, numbers, and hyphens. The server name must not start or end in a hyphen. Name must be between 3 and 63 characters long but we limited to 44 characters so we have a future option to use NSP: https://learn.microsoft.com/en-us/azure/private-link/network-security-perimeter-concepts"
     },
     "keyVaultName": {
       "type": "string",
@@ -268,7 +268,7 @@
           "pattern": "^[a-zA-Z][a-zA-Z0-9]*$"
         },
         "secretName": {
-          "description": "Name of the cerificate created and hostname in cert. Must match host in SAN",
+          "description": "Name of the certificate created and hostname in cert. Must match host in SAN",
           "type": "string"
         },
         "namespace": {

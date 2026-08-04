@@ -66,7 +66,7 @@ type DataPlaneOperatorsIdentities map[ClusterOperatorIdentifier]*DataPlaneOperat
 // GetAlwaysRequiredControlPlaneOperators retrieves the control plane operators identities that are always required
 // for the given version.
 // The meaning of always required for a given version is that the operator identity is always
-// required for the given version, independently on the configuration of the cluster and its derivated resources.
+// required for the given version, independently of the configuration of the cluster and its derived resources.
 // Pre-release and build metadata from version are excluded from the comparison.
 func (c *ClusterScopedIdentitiesConfig) AlwaysRequiredControlPlaneOperators(version *semver.Version) ControlPlaneOperatorsIdentities {
 	var alwaysRequiredControlPlaneOperators = make(ControlPlaneOperatorsIdentities)
@@ -82,7 +82,7 @@ func (c *ClusterScopedIdentitiesConfig) AlwaysRequiredControlPlaneOperators(vers
 // AlwaysRequiredDataPlaneOperators retrieves the data plane operators identities that are always required
 // for the given version.
 // The meaning of always required for a given version is that the operator identity is always
-// required for the given version, independently on the configuration of the cluster and its derivated resources.
+// required for the given version, independently of the configuration of the cluster and its derived resources.
 // Pre-release and build metadata from version are excluded from the comparison.
 func (c *ClusterScopedIdentitiesConfig) AlwaysRequiredDataPlaneOperators(version *semver.Version) DataPlaneOperatorsIdentities {
 	var alwaysRequiredDataPlaneOperators = make(DataPlaneOperatorsIdentities)
@@ -97,7 +97,7 @@ func (c *ClusterScopedIdentitiesConfig) AlwaysRequiredDataPlaneOperators(version
 
 // RoleDefinitionConfigSetName is the name of a role definition config set.
 // It is used to select the appropriate set of role definitions. This allows us
-// to have different role definitions depending on how to service is deployed.
+// to have different role definitions depending on how the service is deployed.
 type RoleDefinitionConfigSetName string
 
 const (
@@ -286,7 +286,7 @@ func (b *BaseClusterScopedOperatorIdentity) IsSupportedForOpenshiftVersion(versi
 
 // isAlwaysRequiredForOpenshiftVersion returns true if the operator identity is always required for the given OpenShift version.
 // The meaning of always required for a given version is that the operator identity is always required for the given version, independently on
-// the configuration of the cluster and its derivated resources.
+// the configuration of the cluster and its derived resources.
 // Pre-release and build metadata from version are excluded from the comparison.
 func (b *BaseClusterScopedOperatorIdentity) isAlwaysRequiredForOpenshiftVersion(version *semver.Version) bool {
 	if !b.isAlwaysRequired() {
@@ -298,13 +298,13 @@ func (b *BaseClusterScopedOperatorIdentity) isAlwaysRequiredForOpenshiftVersion(
 
 // isAlwaysRequired returns true if the identity is always required.
 // The meaning of always required for a given version is that the operator identity is always required for the given version, independently on
-// the configuration of the cluster and its derivated resources.
+// the configuration of the cluster and its derived resources.
 // This applies to the range of versions [b.MinVersionInclusive, b.MaxVersionInclusive] defined in b.
 func (b *BaseClusterScopedOperatorIdentity) isAlwaysRequired() bool {
 	return b.Requirement.Type == IdentityRequirementTypeAlways
 }
 
-// IdentityRequirement is the configuration for a identity requirement.
+// IdentityRequirement is the configuration for an identity requirement.
 type IdentityRequirement struct {
 	// Type indicates the requirement for the identity for a successful installation
 	// and/or update of a Cluster (within the MinVersionInclusive and MaxVersionInclusive constraints).
@@ -349,7 +349,7 @@ type clusterScopedIdentityRoleDefinitionConfigSetsSpec struct {
 	Public *ClusterScopedIdentityRoleDefinition
 }
 
-// clusterScopedOperatorIdentityPlaneSpec is the specification of a cluster scoped operator identity, independent on
+// clusterScopedOperatorIdentityPlaneSpec is the specification of a cluster scoped operator identity, independent of
 // whether it is a control plane or a data plane operator.
 type clusterScopedOperatorIdentityPlaneSpec struct {
 	// MinVersionInclusive is the minimum OpenShift version supported by the identity, inclusive.

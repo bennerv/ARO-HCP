@@ -59,7 +59,7 @@ func execute(ctx context.Context, opts *base.RawAuthOptions) error {
 	if err != nil {
 		return fmt.Errorf("failed to get logger from context: %w", err)
 	}
-	logger.Info("Executing hellow world")
+	logger.Info("Executing hello world")
 
 	client := adminClient.NewClient(completed.Endpoint, completed.Host, completed.Token, completed.Insecure, false)
 	err = client.HelloWorld(ctx)

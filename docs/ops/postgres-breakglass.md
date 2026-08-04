@@ -1,6 +1,6 @@
 # Postgres Breakglass
 
-This guide describes how to access the Postgres database of ARO HCP service, specifically to the Cluster Service and Maestro Azure Postgres flexibleserver databases.
+This guide describes how to access the Postgres database of the ARO HCP service, specifically to the Cluster Service and Maestro Azure Postgres flexibleserver databases.
 
 ## Process
 

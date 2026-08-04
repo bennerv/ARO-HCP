@@ -17,7 +17,7 @@ TLS_CERTIFICATES_ENABLED ?= true
 
 # PROVISION_SHARDS_IDS_NAMESPACE_UUID is the UUID used as the Namespace ID
 # for generating Azure Provision Shard IDs. The value was generated
-# using an UUIDv4 with the github.com/google/uuid library.
+# using a UUIDv4 with the github.com/google/uuid library.
 # *WARNING* Do not change this value as changing it changes how the
 # provision shard ids are generated and consumers of the generated names
 # rely on predictability of the generated names based on the given input.

@@ -267,7 +267,7 @@ type EtcdDataEncryptionProfile struct {
 	CustomerManaged   *CustomerManagedEncryptionProfile       `json:"customerManaged,omitempty"`
 }
 
-// CustomerManagedEncryptionProfile repesents a data encryption configuration for
+// CustomerManagedEncryptionProfile represents a data encryption configuration for
 // ETCD using customer-managed keys.
 // Visibility for the entire struct is "read create".
 type CustomerManagedEncryptionProfile struct {

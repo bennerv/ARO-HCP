@@ -516,7 +516,7 @@ func RunRootCmd(cmd *cobra.Command, flags *BackendRootCmdFlags) error {
 	}
 
 	// Setup signal context allowing for both graceful and forceful shutdown
-	// through linux signals (SIGINT and SIGTERM).
+	// through Linux signals (SIGINT and SIGTERM).
 	ctx := signal.SetupSignalContext()
 
 	// Create a logr.Logger and add it to context for use throughout the application.

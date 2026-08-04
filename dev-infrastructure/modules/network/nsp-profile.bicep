@@ -13,13 +13,13 @@ param nspName string
 @description('The Name the NSP profile should have')
 param profileName string
 
-@description('Array of IPs that will be allowd to access NSP')
+@description('Array of IPs that will be allowed to access NSP')
 param addressPrefixes array = []
 
-@description('Array of Service Tags that will be allowd to access NSP')
+@description('Array of Service Tags that will be allowed to access NSP')
 param serviceTags array = []
 
-@description('Array of Subscription ids that will be allowd to access NSP')
+@description('Array of Subscription ids that will be allowed to access NSP')
 param subscriptions array = []
 
 var subscriptionObjects = [for s in subscriptions: { id: s }]

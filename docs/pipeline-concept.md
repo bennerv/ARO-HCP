@@ -269,7 +269,7 @@ In addition, an environment variable `zz_injected_EV2=1` is set when the step is
 
 ## Pipeline Deployment Scope
 
-A pipeline is the smallest unit of deployment in ARO HCP. This means that all steps within a pipeline are executed from start to finish—there is no concept of executing a single step in only.
+A pipeline is the smallest unit of deployment in ARO HCP. This means that all steps within a pipeline are executed from start to finish—there is no concept of executing a single step only.
 
 A pipeline typically corresponds to one architectural scope, such as global, regional, service or management. More details about these scopes can be found in the [architecture documentation](high-level-architecture.md). However, pipelines are not strictly limited to a single architectural scope. In some cases, cross-scope deployments are necessary, e.g. the regional DNS zone needs delegation from its parent, which resides in the global scope. You can find elaborate details about this in the [Bicep documentation](bicep.md#cross-subscription-deployments).
 

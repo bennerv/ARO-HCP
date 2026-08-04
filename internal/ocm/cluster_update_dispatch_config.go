@@ -403,7 +403,7 @@ func clusterUpdateDispatchConfigServiceProviderClusterDispatchDesiredHostedClust
 		return nil
 	}
 
-	// When the property value does not match any of the ones any of the ones that match to a corresponding
+	// When the property value does not match any of the ones that match to a corresponding
 	// api.ControlPlanePodSizing then we assume that its value comes from having it being set beforehand through
 	// ServiceProviderCluster's spec.
 	return ptr.To(property)

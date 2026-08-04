@@ -2,7 +2,7 @@
 
 ## Overview
 
-ARO-HCP uses a combination Azure Managed Prometheus agents and self-managed Prometheus to monitor both the service/management AKS clusters and the Hosted Control Planes. Metrics are collected via Prometheus Server and remote written to regional Azure Monitor Workspaces. A global instance of Azure Managed Grafana references every Azure Monitor Workspace in the cloud environment as a data source.
+ARO-HCP uses a combination of Azure Managed Prometheus agents and self-managed Prometheus to monitor both the service/management AKS clusters and the Hosted Control Planes. Metrics are collected via Prometheus Server and remote written to regional Azure Monitor Workspaces. A global instance of Azure Managed Grafana references every Azure Monitor Workspace in the cloud environment as a data source.
 
 ## Prometheus Stack
 
@@ -71,7 +71,7 @@ See [`mgmt-agent/pkg/controller/ksmhcp/README.md`](../mgmt-agent/pkg/controller/
 
 ### Dual Workspace Architecture
 
-ARO-HCP implements two Azure Monitor Workspace to separate metrics based on their source and purpose:
+ARO-HCP implements two Azure Monitor Workspaces to separate metrics based on their source and purpose:
 
 **1. Service Monitoring Workspace (Primary)**
 - **Scope**: Infrastructure services, applications, and general cluster metrics

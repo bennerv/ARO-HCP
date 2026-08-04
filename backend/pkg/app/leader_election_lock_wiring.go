@@ -29,7 +29,7 @@ const (
 )
 
 // NewLeaderElectionLock creates a new K8s leases resource lock, intended to be
-// used for leader election in a Kubernetes cluster. leaseHolderIdentity the
+// used for leader election in a Kubernetes cluster. leaseHolderIdentity is the
 // unique identifier of the participant across all participants in the election.
 func NewLeaderElectionLock(leaseHolderIdentity string, kubeconfig *rest.Config, k8sNamespace string) (resourcelock.Interface, error) {
 	lock, err := leaderelection.NewLeaderElectionLock(leaseHolderIdentity, kubeconfig, k8sNamespace, leaderElectionLockName, leaderelection.RecommendedRenewDeadline)

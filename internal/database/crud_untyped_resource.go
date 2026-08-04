@@ -29,9 +29,9 @@ import (
 
 type UntypedResourceCRUD interface {
 	Get(ctx context.Context, resourceID *azcorearm.ResourceID) (*TypedDocument, error)
-	// List returns back only direct descendents from the parent.
+	// List returns back only direct descendants from the parent.
 	List(ctx context.Context, opts *DBClientListResourceDocsOptions) (DBClientIterator[TypedDocument], error)
-	// ListRecursive returns back every descendent from the parent.  For instance, if you ListRecursive on a cluster,
+	// ListRecursive returns back every descendant from the parent.  For instance, if you ListRecursive on a cluster,
 	// you will get the controllers for the cluster, the nodepools, the controllers for each nodepool, the external auths,
 	// the controllers for the external auths, etc.
 	ListRecursive(ctx context.Context, opts *DBClientListResourceDocsOptions) (DBClientIterator[TypedDocument], error)
@@ -53,7 +53,7 @@ type untypedCRUD struct {
 var _ UntypedResourceCRUD = &untypedCRUD{}
 
 // NewUntypedCRUD builds an UntypedResourceCRUD that scopes all operations to
-// descendents of parentResourceID and derives partition keys from the
+// descendants of parentResourceID and derives partition keys from the
 // subscription embedded in the resource hierarchy. For containers that
 // partition differently use NewUntypedCRUDWithPartitionKey.
 func NewUntypedCRUD(containerClient *azcosmos.ContainerClient, parentResourceID azcorearm.ResourceID) UntypedResourceCRUD {
@@ -84,7 +84,7 @@ func (d *untypedCRUD) GetByID(ctx context.Context, cosmosID string) (*TypedDocum
 
 func (d *untypedCRUD) Get(ctx context.Context, resourceID *azcorearm.ResourceID) (*TypedDocument, error) {
 	if !strings.HasPrefix(strings.ToLower(resourceID.String()), strings.ToLower(d.parentResourceID.String())) {
-		return nil, fmt.Errorf("resourceID %q must be a descendent of parentResourceID %q", resourceID.String(), d.parentResourceID.String())
+		return nil, fmt.Errorf("resourceID %q must be a descendant of parentResourceID %q", resourceID.String(), d.parentResourceID.String())
 	}
 	partitionKey, err := d.partitionKeyDeriver.PartitionKey(&d.parentResourceID, resourceID.Name)
 	if err != nil {
@@ -112,7 +112,7 @@ func (d *untypedCRUD) ListRecursive(ctx context.Context, options *DBClientListRe
 
 func (d *untypedCRUD) Delete(ctx context.Context, resourceID *azcorearm.ResourceID) error {
 	if !strings.HasPrefix(strings.ToLower(resourceID.String()), strings.ToLower(d.parentResourceID.String())) {
-		return fmt.Errorf("resourceID %q must be a descendent of parentResourceID %q", resourceID.String(), d.parentResourceID.String())
+		return fmt.Errorf("resourceID %q must be a descendant of parentResourceID %q", resourceID.String(), d.parentResourceID.String())
 	}
 	partitionKey, err := d.partitionKeyDeriver.PartitionKey(&d.parentResourceID, resourceID.Name)
 	if err != nil {

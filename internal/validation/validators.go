@@ -320,7 +320,7 @@ func MinLen(_ context.Context, _ operation.Operation, fldPath *field.Path, value
 	return nil
 }
 
-// Minimum verifies that the specified value is less than or equal to max.
+// Maximum verifies that the specified value is less than or equal to max.
 func Maximum[T constraints.Integer](_ context.Context, _ operation.Operation, fldPath *field.Path, value, _ *T, max T) field.ErrorList {
 	if value == nil {
 		return nil

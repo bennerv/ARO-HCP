@@ -37,9 +37,9 @@ func DefaultLogger() logr.Logger {
 }
 
 var (
-	// PanicTotal counts the total number of panics caught byt this handler.
+	// PanicTotal counts the total number of panics caught by this handler.
 	// If available, it labels by controller.  If not available, they go into "" bucket.
-	// This could be expanded later for a resource type for the frontend if necessay, but something
+	// This could be expanded later for a resource type for the frontend if necessary, but something
 	// counting crashes is better than nothing.
 	PanicTotal = promauto.With(legacyregistry.Registerer()).NewCounterVec(
 		prometheus.CounterOpts{

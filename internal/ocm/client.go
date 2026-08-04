@@ -355,7 +355,7 @@ func (csc *clusterServiceClient) GetClusterInflightChecks(ctx context.Context, i
 }
 
 // At this point, there is no way to get the hypershift details of a cluster via
-// the AroHCP().V1alpha1().Clusters(), not does an equivalent endpoint for Hypershift() exist.
+// the AroHCP().V1alpha1().Clusters(), nor does an equivalent endpoint for Hypershift() exist.
 // To still be able to consume the hypershift details, we make a call to the non-ARO-HCP CS endpoint.
 func (csc *clusterServiceClient) GetClusterHypershiftDetails(ctx context.Context, internalID InternalID) (*cmv1.HypershiftConfig, error) {
 	client, ok := getClusterClient(internalID, csc.conn)
@@ -792,7 +792,7 @@ func NewOpenShiftVersionXYZ(v, cg string) string {
 
 		// Only append channel group if it's not empty and not "stable"
 		// Versions will look as:
-		// stable: opensfhit-vX.Y.Z
+		// stable: openshift-vX.Y.Z
 		// candidate: openshift-vX.Y.Z-candidate
 		// or candidate: openshift-vX.Y.Z[-prerelease]-candidate
 		// which can be <-rc.V> or <-ec.V>

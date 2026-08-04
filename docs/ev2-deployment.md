@@ -81,7 +81,7 @@ Deployments to STAGE and PROD require an approval conducted by people from the `
 
 ## EV2 Artifact generation failed
 
-Issues with EV2 artifact generation can be spotted in the ADO pipeline logs of the `ev2 > build > Generate Ev2 Manifests for xxx` step. It will give you first hints if the problem is with the toolings, the `pipeline.yaml`, any referenced artifacts of the configuration itself.
+Issues with EV2 artifact generation can be spotted in the ADO pipeline logs of the `ev2 > build > Generate Ev2 Manifests for xxx` step. It will give you first hints if the problem is with the tooling, the `pipeline.yaml`, any referenced artifacts of the configuration itself.
 
 ### Clearing EV2 state
 

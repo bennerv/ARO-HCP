@@ -28,9 +28,9 @@ set -euo pipefail
 # wait for all of them to be deleted
 # delete all the managed resource groups with prefix "e2e_tests_mrg_name" (older than 3 hours from ts)
 # delete the customer resource groups with prefix "pr-check-e2e-tests-resource-group-" (older than 3 hours from ts)
-# delete MI secrets under ah-cspr-mi-usw3-1 keyvalut (older than ts-3h)
-# delete OIDC signing token secrets under ah-cspr-cx-usw3-1 keyvalut (older than ts-3h)
-# delete certificates under ah-cspr-cx-usw3-1 keyvalut (older than ts-3h)
+# delete MI secrets under ah-cspr-mi-usw3-1 keyvault (older than ts-3h)
+# delete OIDC signing token secrets under ah-cspr-cx-usw3-1 keyvault (older than ts-3h)
+# delete certificates under ah-cspr-cx-usw3-1 keyvault (older than ts-3h)
 # for each cluster id delete the acr token from 'arohcpocpdev' container registry (https://portal.azure.com/#@redhat0.onmicrosoft.com/resource/subscriptions/1d3378d3-5a3f-4712-85a1-2485495dfc4b/resourceGroups/global/providers/Microsoft.ContainerRegistry/registries/arohcpocpdev/token)
 
 

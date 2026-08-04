@@ -44,7 +44,7 @@ import (
 //
 // An error is returned if an environment value is set to an unhandled value.
 //
-// If no environment variable are set, a no-op tracer is setup.
+// If no environment variables are set, a no-op tracer is set up.
 func ConfigureOpenTelemetryTracer(ctx context.Context, logger logr.Logger, resourceAttrs ...attribute.KeyValue) (
 	func(context.Context) error,
 	error,

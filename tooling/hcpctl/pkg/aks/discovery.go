@@ -114,7 +114,7 @@ func (d *AKSDiscovery) FindSingleCluster(ctx context.Context, filter *AKSFilter)
 	}
 
 	if len(clusters) == 0 {
-		return nil, fmt.Errorf("no clusters not found matching filter criteria")
+		return nil, fmt.Errorf("no clusters found matching filter criteria")
 	}
 
 	if len(clusters) > 1 {

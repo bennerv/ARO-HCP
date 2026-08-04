@@ -74,7 +74,7 @@ func BindCleanOptions(opts *RawCleanOptions, cmd *cobra.Command) error {
 		return fmt.Errorf("failed to mark flag %q as a file: %w", "service-config-path", err)
 	}
 	if err := cmd.MarkFlagRequired("service-config-path"); err != nil {
-		return fmt.Errorf("failed to mark flag %q as a required: %w", "service-config-path", err)
+		return fmt.Errorf("failed to mark flag %q as required: %w", "service-config-path", err)
 	}
 	if err := cmd.MarkFlagFilename("must-gather-clean-binary"); err != nil {
 		return fmt.Errorf("failed to mark flag %q as a file: %w", "must-gather-clean-binary", err)

@@ -111,7 +111,7 @@ $ curl http://localhost:8000/api/aro_hcp/v1alpha1/clusters | jq
 
 And if you normally use your `ocm` client for local development, that works perfectly with the `kubectl port-foward` on `localhost:8000`.
 
- > Note: The OCM  token used below isn't used at runtime when making queries, but it's required to set the ocm client correctly.
+ > Note: The OCM token used below isn't used at runtime when making queries, but it's required to set the ocm client correctly.
 
 ```shell
 

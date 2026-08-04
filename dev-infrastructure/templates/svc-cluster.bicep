@@ -375,7 +375,7 @@ param logsMSI string
 @description('The service account name of the logs managed identity')
 param logsServiceAccount string
 
-@description('Tha name of the SVC NSP')
+@description('The name of the SVC NSP')
 param svcNSPName string
 
 @description('Access mode for this NSP')
@@ -417,7 +417,7 @@ param owningTeamTagValue string
 @description('CSV of key=value tag pairs for the AKS cluster resource')
 param aksClusterTags string
 
-@description('CoscmosDB autoscaling parameters')
+@description('CosmosDB autoscaling parameters')
 param resourceContainerMaxScale int
 param billingContainerMaxScale int
 param locksContainerMaxScale int

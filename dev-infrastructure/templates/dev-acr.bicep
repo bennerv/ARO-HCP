@@ -1,7 +1,7 @@
 /*
 Setup caching rules and purge jobs for Azure Container Registry.
 Used in DEV environment only.
-Depends on ACRs being provisioned beforehands by the global-acr.bicep template.
+Depends on ACRs being provisioned beforehand by the global-acr.bicep template.
 */
 
 @minLength(5)

@@ -24,11 +24,11 @@ import (
 	"k8s.io/apimachinery/pkg/util/validation/field"
 )
 
-// TLSCertificatesConfig holds the configuration used to generate tls
+// TLSCertificatesConfig holds the configuration used to generate TLS
 // certificates for user-facing apis, such as kube-apiserver and ingress.
 type TLSCertificatesConfig struct {
-	// Issuer holds the issuer used to generated the TLS certificates in
-	// Azure Key vault. When CertificatesGenerationSource is AzureKeyVault,
+	// Issuer holds the issuer used to generate the TLS certificates in
+	// Azure Key Vault. When CertificatesGenerationSource is AzureKeyVault,
 	// Issuer is required. Only used when CertificatesGenerationSource is
 	// AzureKeyVault.
 	Issuer TLSCertificateIssuerType `json:"issuer"`
@@ -37,14 +37,14 @@ type TLSCertificatesConfig struct {
 	CertificatesGenerationSource CertificatesGenerationSource `json:"certificatesGenerationSource"`
 }
 
-// TLSCertificateIssuerType indicates the issuer used to generated the TLS
-// certificates in Azure Key vault.
+// TLSCertificateIssuerType indicates the issuer used to generate the TLS
+// certificates in Azure Key Vault.
 type TLSCertificateIssuerType string
 
 const (
-	// TLSCertificateIssuerSelf generates tls certificates with a self signed issuer
+	// TLSCertificateIssuerSelf generates TLS certificates with a self signed issuer
 	TLSCertificateIssuerSelf TLSCertificateIssuerType = "Self"
-	// TLSCertificateIssuerOneCert generates tls certificates with Microsoft's
+	// TLSCertificateIssuerOneCert generates TLS certificates with Microsoft's
 	// OneCertV2-PublicCA issuer
 	TLSCertificateIssuerOneCert TLSCertificateIssuerType = "OneCertV2-PublicCA"
 )

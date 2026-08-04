@@ -128,7 +128,7 @@ What is gathered?
 
 - All service logs, that contain the subscription id and resourcegroup name or are in the cluster namespace (aka hcp logs)
 - All Kubernetes events from the mgmt and service cluster (excluding HCP)
-- All Kubernetes events from the mgmt cluster withing the HCP namespace
+- All Kubernetes events from the mgmt cluster within the HCP namespace
 - Optionally: Systemd logs from the management and service cluster (turn on using --collect-systemd-logs)
 
 ```bash
@@ -143,7 +143,7 @@ hcpctl must-gather  query --kusto $kusto --region $region  --subscription-id $su
 
 Without this flag, logs from all pods of the same container are written to a single file (e.g. `cluster_namespace_container.jsonl`). With `--split-by-pod`, each pod gets its own file (e.g. `cluster_namespace_container_pod.jsonl`).
 
-If you get an error like, limit execeeded try reducing the amount of data by setting either limit or timestamps, i.e.:
+If you get an error like, limit exceeded try reducing the amount of data by setting either limit or timestamps, i.e.:
 
 Set `--limit` fetch the first `$limit` number of rows.
 

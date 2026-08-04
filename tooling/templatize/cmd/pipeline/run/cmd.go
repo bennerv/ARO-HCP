@@ -71,7 +71,7 @@ func EnsureDependencies(ctx context.Context) error {
 		}
 		semverConstraint, err := semver.NewConstraint(c.Constraint)
 		if err != nil {
-			return fmt.Errorf("error creation version constraint '%s', %v", c.Name, err)
+			return fmt.Errorf("error creating version constraint '%s', %v", c.Name, err)
 		}
 		trimmedOutput := strings.TrimSuffix(string(output), "\n")
 		v, err := semver.NewVersion(trimmedOutput)

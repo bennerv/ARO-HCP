@@ -70,7 +70,7 @@ objects:
                   echo "no namespaces matching the criteria to delete, exiting"
                   exit 0
                 fi
-                echo "following orphaned namespaces will be delete - \n$NAMESPACES"
+                echo "following orphaned namespaces will be deleted - \n$NAMESPACES"
                 echo "deleting the orphaned namespaces"
                 echo $NAMESPACES | xargs kubectl delete namespace
                 echo "Script execution completed."

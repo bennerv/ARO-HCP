@@ -68,7 +68,7 @@ type insecureARMPermissionsManagerIdentityCheckAccessV2ClientBuilder struct {
 	options                                               *azcore.ClientOptions
 }
 
-// NewInsecureARMPermissionsManagerIdentityCheckAccessV2ClientBuilder instantiates a CheckAccessV2ClientBuilder that will use a
+// NewInsecureARMPermissionsManagerIdentityCheckAccessV2ClientBuilder instantiates a CheckAccessV2ClientBuilder that will use an
 // Azure Permissions Manager identity to build a CheckAccessV2Client instance. The returned CheckAccessV2ClientBuilder only
 // supports instantiating CheckAccessV2Client instances with the same tenant ID as the one of the Azure Permissions Manager identity.
 func NewInsecureARMPermissionsManagerIdentityCheckAccessV2ClientBuilder(azureARMPermissionsManagerIdentityTokenCredentialRetriever InsecureARMPermissionsManagerIdentityTokenCredentialRetriever,

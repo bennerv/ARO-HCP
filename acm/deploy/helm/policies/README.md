@@ -6,7 +6,7 @@ Policies are deployed after ACM/MCE installation is complete but before any host
 
 This helm chart deploys the following:
 - **ManagedClusterSetBinding** is created to bind the **ManagedClusterSet** "hypershift-managed-clusters" to the **namespace** "open-cluster-management-policies".
-- **Placement** object 'all-hosted-clusters' references the **ManagedClusterSet** "hypershift-management-clusters" so that policies can be bound it.
+- **Placement** object 'all-hosted-clusters' references the **ManagedClusterSet** "hypershift-management-clusters" so that policies can be bound to it.
 
 Add policies to this helm chart by creating a <policy-name>.policy.yaml file that includes:
 - A **Policy** object.

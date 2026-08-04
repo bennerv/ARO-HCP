@@ -86,7 +86,7 @@ func (c *backfillClusterUID) SyncOnce(ctx context.Context, keyObj controllerutil
 	if err != nil {
 		return utils.TrackError(fmt.Errorf("failed to get Cluster: %w", err))
 	}
-	// check if we need to do work again. Sometimes the live data is more fresh than the cache and obviates the need to any work
+	// check if we need to do work again. Sometimes the live data is more fresh than the cache and obviates the need for any work
 	if !c.NeedsWork(ctx, existingCluster) {
 		return nil
 	}

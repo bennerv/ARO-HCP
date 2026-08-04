@@ -470,7 +470,7 @@ func TestDeploymentPreflight(t *testing.T) {
 						"channelGroup": "stable",
 					},
 					"network": map[string]any{
-						// 1 invalid fields
+						// 1 invalid field
 						"podCidr": "invalidCidr",
 					},
 					"api": map[string]any{

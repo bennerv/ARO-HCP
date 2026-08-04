@@ -282,7 +282,7 @@ func (c *deleteOrphanedCosmosResources) QueueForInformers(resyncDuration time.Du
 func (c *deleteOrphanedCosmosResources) SyncOnce(ctx context.Context, subscription any) error {
 	logger := utils.LoggerFromContext(ctx)
 
-	syncErr := c.synchronizeSubscription(ctx, subscription.(string)) // we'll handle this is a moment.
+	syncErr := c.synchronizeSubscription(ctx, subscription.(string)) // we'll handle this in a moment.
 	if syncErr != nil {
 		logger.Error(syncErr, "unable to synchronize all clusters")
 	}

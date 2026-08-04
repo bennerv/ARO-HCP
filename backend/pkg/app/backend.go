@@ -378,7 +378,7 @@ func shutdownHTTPServer(ctx context.Context, server *http.Server, name string) e
 	return err
 }
 
-// runBackendControllersUnderLeaderElection runs the backen controllers under
+// runBackendControllersUnderLeaderElection runs the backend controllers under
 // a leader election loop.
 func (b *Backend) runBackendControllersUnderLeaderElection(ctx context.Context, electionChecker *leaderelection.HealthzAdaptor) error {
 	logger := utils.LoggerFromContext(ctx)

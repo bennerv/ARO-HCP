@@ -298,9 +298,9 @@ infra.cosmos.access:
 #
 # - Services are deployed in aks clusters (either svc or mgmt), which are
 #   provisioned via infra section above
-# - Makefile targets to deploy services ends with ".deploy" suffix
+# - Makefile targets to deploy services end with ".deploy" suffix
 # - To deploy all services on svc or mgmt cluster, we have special targets
-#   `svc.deployall` and `mgmt.deployall`, and `deployall` deploys everithing.
+#   `svc.deployall` and `mgmt.deployall`, and `deployall` deploys everything.
 # - Placement of a service is controlled via services_svc and services_mgmt
 #   variables
 # - If the name of the service contains a dot, it's interpreted as directory
@@ -316,7 +316,7 @@ services_all = $(join services_svc,services_mgmt)
 .PHONY: $(addsuffix .deploy, $(services_all)) deployall svc.deployall mgmt.deployall listall list clean
 
 # Service deployment on either svc or mgmt aks cluster, a service name
-# needs to be listed either in services_svc or services_mgmt variable (wich
+# needs to be listed either in services_svc or services_mgmt variable (which
 # defines where it will be deployed).
 %.deploy:
 	$(eval export dirname=$(subst .,/,$(basename $@)))

@@ -150,7 +150,7 @@ func newHardcodedRESTMapper() hardCodedFirstRESTMapper {
 }
 
 // hardCodedFirstRESTMapper is a RESTMapper that will look for hardcoded mappings.  This was simple when small. If it
-// becomes painful, replace with a real RESTMapper based on discovery.  The disadvantage to discovery are the problems
+// becomes painful, replace with a real RESTMapper based on discovery.  The disadvantages of discovery are the problems
 // we have if CRD registration or APIService registration fails.
 type hardCodedFirstRESTMapper struct {
 	Mapping map[schema.GroupVersionKind]meta.RESTMapping

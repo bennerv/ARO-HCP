@@ -4,7 +4,7 @@ param location = '{{ .global.region }}'
 param globalMSIName = '{{ .global.globalMSIName }}'
 param cxParentZoneName = '{{ .dns.cxParentZoneName }}'
 param svcParentZoneName = '{{ .dns.svcParentZoneName }}'
-//  SafeDnsIntApplication object ID use to delegate child DNS
+//  SafeDnsIntApplication object ID used to delegate child DNS
 param safeDnsIntAppObjectId = '{{ .global.safeDnsIntAppObjectId }}'
 
 param keyVaultName = '{{ .global.keyVault.name}}'

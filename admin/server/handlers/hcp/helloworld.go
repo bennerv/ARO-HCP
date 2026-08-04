@@ -52,7 +52,7 @@ func (h *HCPHelloWorldHandler) ServeHTTP(writer http.ResponseWriter, request *ht
 		return fmt.Errorf("failed to get resource ID: %w", err)
 	}
 
-	// get client princiapal name attached to the request
+	// get client principal name attached to the request
 	clientPrincipalReference, err := middleware.ClientPrincipalFromContext(request.Context())
 	if err != nil {
 		return fmt.Errorf("failed to get client principal name: %w", err)

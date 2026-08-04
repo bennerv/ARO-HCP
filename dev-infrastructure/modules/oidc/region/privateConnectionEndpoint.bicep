@@ -4,7 +4,7 @@ param storageName string
 @description('The message that was sent when a private link was created to storage')
 param requestMessage string
 
-// Need to read the storage resource once the private link is enabled by Orign under AFD
+// Need to read the storage resource once the private link is enabled by Origin under AFD
 resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' existing = {
   name: storageName
 }

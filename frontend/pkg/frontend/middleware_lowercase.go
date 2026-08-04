@@ -43,7 +43,7 @@ import (
 // The frontend uses ServeMux from Go's standard library (net/http), which
 // matches literal (that is, non-wildcarded) path segments case-sensitively.
 // For instance, in a resource ID, "subscriptions" and "resourcegroups" are
-// literal path segments and therefore are matched case-sensitvely.
+// literal path segments and therefore are matched case-sensitively.
 //
 // So this middleware saves the original path casing in the request context,
 // and then normalizes the casing for ServeMux by lowercasing it. At the same

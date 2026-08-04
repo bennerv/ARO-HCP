@@ -39,13 +39,13 @@ type RawAuthOptions struct {
 }
 
 func (o *RawAuthOptions) BindFlags(cmd *cobra.Command) error {
-	cmd.Flags().StringVar(&o.TenantID, "ga-auth-tenant-id", o.TenantID, "Tenant ID, where the Geneva Action applicaion is registered")
+	cmd.Flags().StringVar(&o.TenantID, "ga-auth-tenant-id", o.TenantID, "Tenant ID, where the Geneva Action application is registered")
 	cmd.Flags().StringVar(&o.ClientID, "ga-auth-client-id", o.ClientID, "Client ID of the Geneva Action application")
 	cmd.Flags().StringSliceVar(&o.Scopes, "ga-auth-scopes", o.Scopes, "Scopes to request when minting a bearer token for the Geneva Action application")
 	cmd.Flags().StringVar(&o.KeyVaultURI, "ga-auth-cert-kv", o.KeyVaultURI, "URL of the Azure Keyvault that contains the authentication certificate for the Geneva Action application")
 	cmd.Flags().StringVar(&o.CertificateSecret, "ga-auth-cert-secret", o.CertificateSecret, "Keyvault secret that contains the authentication certificate for the Geneva Action application")
 	cmd.Flags().StringVar(&o.Endpoint, "admin-api-endpoint", o.Endpoint, "Admin API endpoint")
-	cmd.Flags().StringVar(&o.Host, "host", o.Host, "Host header to set in the request (useful for port-forward scenarios where admin andpoint and host differ)")
+	cmd.Flags().StringVar(&o.Host, "host", o.Host, "Host header to set in the request (useful for port-forward scenarios where admin endpoint and host differ)")
 	cmd.Flags().BoolVar(&o.Insecure, "insecure-skip-verify", o.Insecure, "Skip TLS certificate verification")
 
 	// Mark required flags

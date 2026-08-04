@@ -1139,9 +1139,9 @@ type IdentityRoleAssignments struct {
 // The permissions are derived from roles defined in test/e2e-setup/bicep/modules/managed-identities.bicep
 // These are the actual actions that the role grants, fetched from Azure role definitions.
 //
-// The actions returned for build-in roles can deviate from the the ones that are actually present
+// The actions returned for built-in roles can deviate from the ones that are actually present
 // in Azure. This is legit and we use it at times where we need to test new permissions before the
-// build-in role is rolled out to Azure.
+// built-in role is rolled out to Azure.
 func GetExpectedDefinitions(identityType string) (*IdentityRoleAssignments, error) {
 	switch identityType {
 	case ServiceManagedIdentityName:

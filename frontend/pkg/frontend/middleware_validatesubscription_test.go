@@ -266,7 +266,7 @@ func TestMiddlewareValidateSubscription(t *testing.T) {
 			t.Fatalf("should not reach this call")
 		}
 
-		// this is a coding error (client cannot trigger this) from which the request cannot recover.  A panic appropriate.
+		// this is a coding error (client cannot trigger this) from which the request cannot recover.  A panic is appropriate.
 		func() {
 			defer func() {
 				if r := recover(); r != nil {

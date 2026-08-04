@@ -388,7 +388,7 @@ func TestSessionController_processSession_generateCredentials(t *testing.T) {
 			expectAction: true,
 		},
 		{
-			name: "session with private key but no private keyconditions",
+			name: "session with private key but no private key conditions",
 			sessionStatus: sessiongatev1alpha1.SessionStatus{
 				ExpiresAt:            &metav1.Time{Time: fixedTime.Add(24 * time.Hour)},
 				CredentialsSecretRef: "sessiongate-9b1f64c3",

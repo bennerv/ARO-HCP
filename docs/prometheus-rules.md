@@ -82,7 +82,7 @@ monitoring:
   devAlertingEmails: "aro-hcp-service-lifecycle-team@redhat.com,user@redhat.com"
 ```
 
-Simply add an e-mail address by append the comma separated string.  
+Simply add an e-mail address by appending the comma separated string.  
 
 Be aware when using google groups, they need to be configured to accept emails from outside of the organization.
 

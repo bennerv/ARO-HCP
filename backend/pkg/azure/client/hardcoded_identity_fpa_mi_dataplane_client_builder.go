@@ -35,7 +35,7 @@ func (b *hardcodedIdentityFPAMIDataplaneClientBuilder) BuilderType() FPAMIDatapl
 // based on the hardcoded identity implementation of the Managed Identities
 // Data Plane client hardcodedIdentityManagedIdentitiesDataplaneClient.
 // The identity URL parameter is not used in the hardcoded identity implementation
-// of the managed identities dataplane clientso we ignore it.
+// of the managed identities dataplane client so we ignore it.
 func (b *hardcodedIdentityFPAMIDataplaneClientBuilder) ManagedIdentitiesDataplane(_ string) (ManagedIdentitiesDataplaneClient, error) {
 	return newHardcodedIdentityManagedIdentitiesDataPlaneClient(b.cloudConfiguration, b.hardcodedIdentity), nil
 }

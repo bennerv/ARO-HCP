@@ -37,7 +37,7 @@ param safeDnsIntAppObjectId string
 param locationAvailabilityZones string = getLocationAvailabilityZonesCSV(location)
 var locationAvailabilityZoneList = csvToArray(locationAvailabilityZones)
 
-@description('Tha name of the SVC NSP')
+@description('The name of the SVC NSP')
 param globalNSPName string
 
 @description('Access mode for this NSP')

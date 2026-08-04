@@ -132,11 +132,11 @@ const (
 	BreakGlassCredentialStatusKey attribute.Key = "cs.break_glass_credential.status"
 
 	// BreakGlassCredentialRevocationTimestampKey is the attribute key for the
-	// break-glass credential's revocation timetstamp .
+	// break-glass credential's revocation timestamp .
 	BreakGlassCredentialRevocationTimestampKey attribute.Key = "cs.break_glass_credential.revocation_time"
 
 	// BreakGlassCredentialExpirationTimestampKey is the attribute key for the
-	// break-glass credential's expiration timetstamp .
+	// break-glass credential's expiration timestamp .
 	BreakGlassCredentialExpirationTimestampKey attribute.Key = "cs.break_glass_credential.expiration_time"
 
 	// ProvisionShardIDKey is the attribute key for the provision shard identifier.

@@ -25,8 +25,8 @@ If you have a fresh container, you need to run `tsp code install` to enable the 
 Typespec is a tool that is used to generate the swagger definition from the typespec service definition. It was introduced by Microsoft to make writing api definitions easier and add type definitions to the API definitions.
 
 You can learn more about typespec in Microsoft documentation.
-Whereas the basics of typespec can be found in the [typespec document ation](https://typespec.io/docs/getting-started).
-Additional information on the use with Azure libraries in in the [Microsoft typespec libraries](https://azure.github.io/typespec-azure/docs/getstarted/createproject).
+Whereas the basics of typespec can be found in the [typespec documentation](https://typespec.io/docs/getting-started).
+Additional information on the use with Azure libraries in the [Microsoft typespec libraries](https://azure.github.io/typespec-azure/docs/getstarted/createproject).
 
 Samples of the typespec usage can be found in the [Azure/typespec-azure](https://github.com/Azure/typespec-azure/tree/main/packages/samples/specs/resource-manager).
 
@@ -82,7 +82,7 @@ oav generate-examples openapi.json
 ## Generating the api client
 
 The API client can be generated using the [autorest](https://github.com/Azure/autorest).
-the devcontainer comes with the autorest installed. The usage is straightforward:
+The devcontainer comes with the autorest installed. The usage is straightforward:
 
 ```bash
 autorest api/readme.md --tag=v20260630preview
@@ -91,4 +91,4 @@ autorest api/readme.md --tag=v20260630preview
 The autorest configuration is in the top-level `readme.md` file, which defines tags for each API version.
 
 **IMPORTANT**: When the new examples are generated, all files are changed. Please make sure to review the changes before committing them
-and commit only the changed parts. Otherwise it will result is a lot of unnecessary changes in the PR.
+and commit only the changed parts. Otherwise it will result in a lot of unnecessary changes in the PR.

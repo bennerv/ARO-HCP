@@ -1005,7 +1005,7 @@ func GetExternalAuth20240610(
 	)
 }
 
-// DeleteExternalAuthAndWait20240610 deletes a an external auth on an HCP cluster and waits
+// DeleteExternalAuthAndWait20240610 deletes an external auth on an HCP cluster and waits
 func DeleteExternalAuthAndWait20240610(
 	ctx context.Context,
 	externalAuthClient *hcpsdk20240610preview.ExternalAuthsClient,

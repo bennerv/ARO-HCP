@@ -35,7 +35,7 @@ import (
 type HardcodedIdentity struct {
 	// ClientID is the Client ID of a valid identity.
 	ClientID string
-	// ClientSecret is The base64 encoded bundle
+	// ClientSecret is the base64 encoded bundle
 	// certificate (public + private key) of the identity.
 	// The identity is a valid identity credential associated to the identity
 	// identified by ClientID.

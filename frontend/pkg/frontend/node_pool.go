@@ -327,7 +327,7 @@ func (f *Frontend) createNodePool(writer http.ResponseWriter, request *http.Requ
 	}
 
 	// set fields that were not known until the operation doc instance was created.
-	// TODO once we we have separate creation/validation of operation documents, this can be done ahead of time.
+	// TODO once we have separate creation/validation of operation documents, this can be done ahead of time.
 	newInternalNodePool.ServiceProviderProperties.ActiveOperationID = createNodePoolOperation.ResourceID.Name
 	newInternalNodePool.Properties.ProvisioningState = createNodePoolOperation.Status
 
@@ -374,7 +374,7 @@ func decodeDesiredNodePoolReplace(ctx context.Context, oldInternalNodePool *api.
 	// Decoding for update has a series of semantics for determining the final desired update
 	// 1. exact user request
 	// 2. defaults for that version
-	// 3. if not set, the values that the user doesn't necessary have to set but are not static defaults.  These from from the old value.
+	// 3. if not set, the values that the user doesn't necessarily have to set but are not static defaults.  These come from the old value.
 	// 4. values that are missing because the external type doesn't represent them
 	// 5. values that might change because our machinery changes them.
 
@@ -436,7 +436,7 @@ func decodeDesiredNodePoolReplace(ctx context.Context, oldInternalNodePool *api.
 
 	// Clear the user-assigned identities map since that is reconstructed from Cluster Service data.
 	// TODO we'd like to have the instance complete when we go to validate it.  Right now validation fails if we clear this.
-	// TODO we probably update validation to require this field is cleared.
+	// TODO we should probably update validation to require this field is cleared.
 	//newInternalCluster.Identity.UserAssignedIdentities = nil
 
 	// Backstop for fields unknown to this API version's SetDefaultValues*.
@@ -503,7 +503,7 @@ func decodeDesiredNodePoolPatch(ctx context.Context, oldInternalNodePool *api.HC
 
 	// Clear the user-assigned identities map since that is reconstructed from Cluster Service data.
 	// TODO we'd like to have the instance complete when we go to validate it.  Right now validation fails if we clear this.
-	// TODO we probably update validation to require this field is cleared.
+	// TODO we should probably update validation to require this field is cleared.
 	//newInternalCluster.Identity.UserAssignedIdentities = nil
 
 	// Backstop for fields unknown to this API version's SetDefaultValues*.
@@ -581,8 +581,8 @@ func (f *Frontend) updateNodePoolInCosmos(ctx context.Context, writer http.Respo
 
 	logger.Info(fmt.Sprintf("updating resource %s", oldInternalNodePool.ID))
 
-	// The cosmos representation the new desired version
-	// The controllers will take care of handle the upgrade
+	// The Cosmos representation of the new desired version
+	// The controllers will take care of handling the upgrade
 
 	transaction := f.resourcesDBClient.NewTransaction(oldInternalNodePool.ID.SubscriptionID)
 
@@ -602,7 +602,7 @@ func (f *Frontend) updateNodePoolInCosmos(ctx context.Context, writer http.Respo
 	}
 
 	// set fields that were not known until the operation doc instance was created.
-	// TODO once we we have separate creation/validation of operation documents, this can be done ahead of time.
+	// TODO once we have separate creation/validation of operation documents, this can be done ahead of time.
 	newInternalNodePool.ServiceProviderProperties.ActiveOperationID = nodePoolUpdateOperation.ResourceID.Name
 	newInternalNodePool.Properties.ProvisioningState = nodePoolUpdateOperation.Status
 

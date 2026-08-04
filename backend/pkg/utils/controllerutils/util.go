@@ -108,7 +108,7 @@ func (k HCPClusterKey) InitialController(controllerName string) *api.Controller 
 	}
 }
 
-// HCPNodePoolKey is for driving workqueus keyed for nodepools
+// HCPNodePoolKey is for driving workqueues keyed for nodepools
 type HCPNodePoolKey struct {
 	SubscriptionID    string `json:"subscriptionID"`
 	ResourceGroupName string `json:"resourceGroupName"`
@@ -328,8 +328,8 @@ func GetOrCreateController(
 }
 
 // WriteController will read the existing value, call the mutations in order, then write the result.  It only tries *once*.
-// If it fails, then the an error is returned.  This detail is important, it doesn't even retry conflicts.  This is so that
-// if a failure happens the control-loop will re-run and restablish the information it was trying to write as valid.
+// If it fails, then an error is returned.  This detail is important, it doesn't even retry conflicts.  This is so that
+// if a failure happens the control-loop will re-run and reestablish the information it was trying to write as valid.
 // This prevents accidental recreation of controller instances in cosmos during a delete.
 func WriteController(ctx context.Context, controllerCRUD database.ResourceCRUD[api.Controller, *api.Controller], controllerName string, initialControllerFn InitialControllerFunc, mutationFns ...controllerMutationFunc) error {
 	logger := utils.LoggerFromContext(ctx)

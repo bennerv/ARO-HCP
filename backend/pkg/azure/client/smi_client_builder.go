@@ -37,8 +37,8 @@ const (
 	ServiceManagedIdentityClientBuilderTypeValue ServiceManagedIdentityClientBuilderType = "SMI"
 )
 
-// ServiceManagedIdentityClientBuilder offers the ability tocreate Azure clients
-// authenticating as the the Cluster's Service Managed Identity, which is
+// ServiceManagedIdentityClientBuilder offers the ability to create Azure clients
+// authenticating as the Cluster's Service Managed Identity, which is
 // a cluster-scoped identity.
 type ServiceManagedIdentityClientBuilder interface {
 	BuilderType() ServiceManagedIdentityClientBuilderType

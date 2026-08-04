@@ -26,7 +26,7 @@ import (
 )
 
 // The RpRegistrationValidation struct validates the states of several
-// Azure Resource Providers associated with a clusters region, subscription, etc.
+// Azure Resource Providers associated with a cluster's region, subscription, etc.
 type AzureResourceProvidersRegistrationValidation struct {
 	azureFPAClientBuilder azureclient.FirstPartyApplicationClientBuilder
 }

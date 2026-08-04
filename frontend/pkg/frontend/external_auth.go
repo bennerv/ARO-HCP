@@ -206,7 +206,7 @@ func decodeDesiredExternalAuthCreate(ctx context.Context) (*api.HCPOpenShiftClus
 		return nil, nameResourceIDMismatch(resourceID, newInternalExternalAuth.Name)
 	}
 
-	// ProxyResource info doesn't to come from the external resource information
+	// ProxyResource info doesn't appear to come from the external resource information
 	conversion.CopyReadOnlyProxyResourceValues(&newInternalExternalAuth.ProxyResource, ptr.To(arm.NewProxyResource(resourceID)))
 	newInternalExternalAuth.SetResourceID(resourceID)
 	newInternalExternalAuth.SetPartitionKey(resourceID.SubscriptionID)
@@ -299,7 +299,7 @@ func (f *Frontend) createExternalAuth(writer http.ResponseWriter, request *http.
 	}
 
 	// set fields that were not known until the operation doc instance was created.
-	// TODO once we we have separate creation/validation of operation documents, this can be done ahead of time.
+	// TODO once we have separate creation/validation of operation documents, this can be done ahead of time.
 	newInternalExternalAuth.ServiceProviderProperties.ActiveOperationID = createExternalAuthOperation.ResourceID.Name
 	newInternalExternalAuth.Properties.ProvisioningState = createExternalAuthOperation.Status
 
@@ -346,7 +346,7 @@ func decodeDesiredExternalAuthReplace(ctx context.Context, oldInternalExternalAu
 	// Decoding for update has a series of semantics for determining the final desired update
 	// 1. exact user request
 	// 2. defaults for that version
-	// 3. if not set, the values that the user doesn't necessary have to set but are not static defaults.  These from from the old value.
+	// 3. if not set, the values that the user doesn't necessarily have to set but are not static defaults.  These come from the old value.
 	// 4. values that are missing because the external type doesn't represent them
 	// 5. values that might change because our machinery changes them.
 
@@ -499,7 +499,7 @@ func (f *Frontend) updateExternalAuthInCosmos(ctx context.Context, writer http.R
 	}
 
 	// set fields that were not known until the operation doc instance was created.
-	// TODO once we we have separate creation/validation of operation documents, this can be done ahead of time.
+	// TODO once we have separate creation/validation of operation documents, this can be done ahead of time.
 	newInternalExternalAuth.ServiceProviderProperties.ActiveOperationID = externalAuthUpdateOperation.ResourceID.Name
 	newInternalExternalAuth.Properties.ProvisioningState = externalAuthUpdateOperation.Status
 

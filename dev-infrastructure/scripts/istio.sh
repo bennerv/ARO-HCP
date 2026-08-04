@@ -91,7 +91,7 @@ done
 
 echo "********** ISTIO Upgrade **************"
 # Followed this guide for istio upgrade https://learn.microsoft.com/en-us/azure/aks/istio-upgrade
-# To upgrade or rollback, change the targetVersion to the desire version, and version to the current version.
+# To upgrade or rollback, change the targetVersion to the desired version, and version to the current version.
 if [[ -z "$TARGET_VERSION" ]]; then
     echo "Target version is not set, Please set the target version"
     exit 1

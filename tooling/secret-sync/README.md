@@ -1,6 +1,6 @@
 # Secret sync scripts
 
-see [Secret Syncronization](../../docs/secret-sync.md) for higher level information
+see [Secret Synchronization](../../docs/secret-sync.md) for higher level information
 
 ## Validating encrypted secrets
 

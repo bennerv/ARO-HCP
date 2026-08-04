@@ -127,7 +127,7 @@ type HCPOpenShiftClusterNodePoolServiceProviderProperties struct {
 }
 
 // NodePoolVersionProfile represents the worker node pool version.
-// Visbility for the entire struct is "read create update".
+// Visibility for the entire struct is "read create update".
 type NodePoolVersionProfile struct {
 	ID           string `json:"id,omitempty"`
 	ChannelGroup string `json:"channelGroup,omitempty"`
@@ -156,7 +156,7 @@ type NodePoolPlatformProfile struct {
 	AvailabilityZone string `json:"availabilityZone,omitempty"`
 }
 
-// OSDiskProfile represents a OS Disk configuration.
+// OSDiskProfile represents an OS Disk configuration.
 // Visibility for the entire struct is "read create".
 type OSDiskProfile struct {
 	SizeGiB                *int32                 `json:"sizeGiB,omitempty"`

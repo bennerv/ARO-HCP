@@ -1,5 +1,5 @@
 #!/bin/bash
-# Create an ARO HCP Cluster + Node pool using bicep.
+# Create an ARO HCP Cluster + Node pool using Bicep.
 set -o errexit
 set -o nounset
 set -o pipefail

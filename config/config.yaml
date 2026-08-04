@@ -12,7 +12,7 @@ $schema: config.schema.json
 #   This is a technical requirement of Azure for certain resource types
 # - [env-unique] - a resource needs to be unique within an ARO HCP environment,
 #   so across all regions of ARO HCP in the same environment.
-#   An environment unique names does not need to be unique within the Azure cloud
+#   An environment-unique name does not need to be unique within the Azure cloud
 #
 # To implement names, we leverage static strings combined with the {{ .ctx }} variables, e.g.
 # - {{ .ctx.environment }} length: 1-4 / starts with a character, may end with a digit
@@ -405,7 +405,7 @@ defaults:
     #   Multiline string using '>-' YAML block scalar
     #   One item per line, formatted as: UUID/PrincipalType/RoleName
     # Our yaml formatter does not allow >- when there is no value, so remember
-    # to chage "" to >- when you add a value.
+    # to change "" to >- when you add a value.
     grafanaRoles: ""
     crossTenantSecurityGroup: ""
     svcWorkspaceName: 'services-{{ .ctx.region }}'
@@ -1180,7 +1180,7 @@ defaults:
       allowedSubscriptions: ""
 clouds:
   dev:
-    # this configuration serves as a template for for all RH DEV subscription deployments
+    # this configuration serves as a template for all RH DEV subscription deployments
     defaults:
       cloudEnvironmentName: "AzurePublicCloud"
       kusto:
@@ -1240,7 +1240,7 @@ clouds:
         san: firstPartyCert2.hcpsvc.osadev.cloud
         contentType: x-pkcs12
         manage: Disabled
-      # Mock Managed Identities Service Princiapl
+      # Mock Managed Identities Service Principal
       miMockClientId: e8723db7-9b9e-46a4-9f7d-64d75c3534f0
       miMockPrincipalId: d6b62dfa-87f5-49b3-bbcb-4a687c4faa96
       miMockTenantId: 64dc69e4-d083-49fc-9569-ebece1dd1408
@@ -1346,7 +1346,7 @@ clouds:
           - '*.hcp.osadev.cloud'
           - '*.hcpsvc.osadev.cloud'
         aks:
-          # MGMTM AKS nodepools - big enough for 1 HCPs
+          # MGMT AKS nodepools - big enough for 1 HCP
           systemAgentPool:
             vmSize: 'Standard_E8s_v3'
             maxCount: 4

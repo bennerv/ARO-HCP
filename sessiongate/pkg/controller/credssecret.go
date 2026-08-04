@@ -131,7 +131,7 @@ func decodePrivateKey(privateKeyBytes []byte) (*rsa.PrivateKey, error) {
 	block, rest := pem.Decode(privateKeyBytes)
 	if block == nil || len(rest) > 0 {
 		// we expect private keys to be a single PEM encoded block
-		// this decode functions expects to be used in tandem with
+		// this decode function expects to be used in tandem with
 		// the createPrivateKey and encodePrivateKey functions to ensure
 		// this invariant is maintained
 		//

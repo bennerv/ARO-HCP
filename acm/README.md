@@ -1,6 +1,6 @@
 # Multicluster-Engine and Policy installation
 
-This folder contains helm charts and automation to managed helm charts for the ACM components `MCE` and `policy`.
+This folder contains helm charts and automation to manage helm charts for the ACM components `MCE` and `policy`.
 
 ## Structure
 

@@ -106,7 +106,7 @@ type azureTokenRoundTripper struct {
 // RoundTrip implements http.RoundTripper by fetching an Azure token and adding it to the request
 func (rt *azureTokenRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 	// GetToken will use cached tokens internally and refreshes the internal cache when necessary
-	// so we don't have to do any manualy caching/refreshing whatsoever
+	// so we don't have to do any manual caching/refreshing whatsoever
 	token, err := rt.credential.GetToken(req.Context(), policy.TokenRequestOptions{
 		Scopes: []string{aksOAuthServerID + "/.default"},
 	})

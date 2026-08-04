@@ -37,7 +37,7 @@ In contrast to the continuous mirroring of OCP images, the on-demand image sync 
 
 The image mirror step happens before Helm chart deployment. This ensures that the correct images are available in the target environment before any service components are deployed. Since we exclusively use digest-based image references, mirroring can be re-triggered without affecting the consistency of the deployment across different regions of an environment.
 
-Each service component defines a source registry, repository and the digest to be used for deployments the [configuration management](configuration.md). There is a predefined type `"#/definitions/containerImage"` available in the [configuration schema](../config/config.schema.json), that can be used to define the image properties. An example configuration for the `clustersService` component looks like this ...
+Each service component defines a source registry, repository and the digest to be used for deployments via the [configuration management](configuration.md). There is a predefined type `"#/definitions/containerImage"` available in the [configuration schema](../config/config.schema.json), that can be used to define the image properties. An example configuration for the `clustersService` component looks like this ...
 
 ```yaml
 clustersService:

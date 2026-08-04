@@ -456,7 +456,7 @@ func TestFPAVirtualMachineResourceSKUsCachedReaderController_ListContextCancelDu
 	controller := NewFPAVirtualMachineResourceSKUsCachedReaderController(mockBuilder, testLocation)
 
 	ctx, cancel := context.WithCancel(context.Background())
-	cancel() // Cancel the context — the goroutine should should not hang forever
+	cancel() // Cancel the context — the goroutine should not hang forever
 
 	skus, err := controller.ListVirtualMachineSKUs(ctx, testTenantID, testSubscriptionID, testLocation)
 	require.Error(t, err)

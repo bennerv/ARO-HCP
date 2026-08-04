@@ -110,7 +110,7 @@ func ResourceInstanceEquals(t *testing.T, expected, actual any) (string, bool) {
 			unstructured.RemoveNestedField(currMap, "resourceID")
 		}
 
-		// this loops handles the cosmosObj possibility and the internalObj possibility
+		// this loop handles the cosmosObj possibility and the internalObj possibility
 		for _, possiblePrepend := range []string{"", "properties"} {
 			unstructured.RemoveNestedField(currMap, prepend(possiblePrepend, "lastTransitionTime")...) // operations
 			unstructured.RemoveNestedField(currMap, prepend(possiblePrepend, "startTime")...)          // operations

@@ -82,8 +82,8 @@ func (ea *HCPOpenShiftClusterExternalAuth) EnsureDefaults() {
 
 var _ arm.CosmosPersistable = &HCPOpenShiftClusterExternalAuth{}
 
-// HCPOpenShiftClusterNodePoolProperties represents the property bag of a
-// HCPOpenShiftClusterNodePool resource.
+// HCPOpenShiftClusterExternalAuthProperties represents the property bag of an
+// HCPOpenShiftClusterExternalAuth resource.
 type HCPOpenShiftClusterExternalAuthProperties struct {
 	// Written by: Frontend PUT/PATCH/DELETE ExternalAuth, OperationExternalAuthCreate, OperationExternalAuthUpdate, OperationExternalAuthDelete
 	ProvisioningState arm.ProvisioningState `json:"provisioningState"`
@@ -118,7 +118,7 @@ type HCPOpenShiftClusterExternalAuthServiceProviderProperties struct {
 // Token issuer profile
 // This configures how the platform interacts with the identity provider and
 // how tokens issued from the identity provider are evaluated by the Kubernetes API server.
-// Visbility for the entire struct is "read create update".
+// Visibility for the entire struct is "read create update".
 type TokenIssuerProfile struct {
 	URL       string   `json:"url"`
 	Audiences []string `json:"audiences"`

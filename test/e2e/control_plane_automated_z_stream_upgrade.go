@@ -45,7 +45,7 @@ var _ = Describe("Service Provider", func() {
 			tc := framework.NewTestContext()
 
 			if len(baseInstallVersion) == 0 {
-				baseInstallVersion = minorVersion // set it to minor so that we defaul to .0 as the patch version
+				baseInstallVersion = minorVersion // set it to minor so that we default to .0 as the patch version
 			}
 			installVersion, hasUpgradePath, err := framework.GetInstallVersionForZStreamUpgrade(ctx, "candidate", baseInstallVersion)
 			if err != nil {
@@ -66,7 +66,7 @@ var _ = Describe("Service Provider", func() {
 			clusterParams.ClusterName = clusterName
 			clusterParams.OpenshiftVersionId = installVersion
 
-			// We use the candidate channel to potentially catch early z-stream upgrades.
+			// We use the candidate channel to potentially catch early z-stream upgrade
 			// issues before they reach stable.
 			By("using the candidate channel")
 			clusterParams.ChannelGroup = "candidate"

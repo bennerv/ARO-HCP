@@ -6,7 +6,7 @@
 ## This is the autorest configuration file for RedHatOpenShift HCP Clusters.
 
 The service is hosted under Microsoft.RedHatOpenShift namespace but HCP is exposed
-as a separarate set of resources, APIs and SDKs.
+as a separate set of resources, APIs and SDKs.
 
 ## Getting Started
 

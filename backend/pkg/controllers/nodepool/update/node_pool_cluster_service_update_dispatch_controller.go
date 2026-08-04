@@ -206,7 +206,7 @@ func (c *nodePoolClusterServiceUpdateDispatchSyncer) SyncOnce(ctx context.Contex
 		//     returns 400 Bad Request for a wide range of errors and there
 		//     is no other information in the response to distinguish them.
 		//
-		//     If the error is indicating that a the node pool is not in
+		//     If the error is indicating that the node pool is not in
 		//     an updatable state because the parent cluster is not in an updatable state,
 		//     we return without error and retry again on the next sync. This can happen for
 		//     example when the CS cluster is being updated.
@@ -225,7 +225,7 @@ func (c *nodePoolClusterServiceUpdateDispatchSyncer) SyncOnce(ctx context.Contex
 		//     returns 400 Bad Request for a wide range of errors and there
 		//     is no other information in the response to distinguish them.
 		//
-		//     If the error is indicating that a the node pool is not in
+		//     If the error is indicating that the node pool is not in
 		//     an updatable state, we return without error and retry again on the
 		//     next sync. This can happen for example when the CS node pool is still in
 		//     the initial creation process.

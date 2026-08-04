@@ -35,7 +35,7 @@ import (
 )
 
 // breakglass credentials for groups mentioned in this map are rewritten
-// this allows us get remove the sre-breakglass-role ACM policy while
+// this allows us to remove the sre-breakglass-role ACM policy while
 // keeping the same level of access for SREs
 var groupRewriteMap = map[string]string{
 	"aro-sre-pso": "system:cluster-readers",

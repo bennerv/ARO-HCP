@@ -56,7 +56,7 @@ type Operation struct {
 	OperationID *azcorearm.ResourceID `json:"operationId,omitempty"`
 	// ClientRequestID is provided by the "x-ms-client-request-id" request header
 	ClientRequestID string `json:"clientRequestId,omitempty"`
-	// CorrelationRequstID is provided by the "x-ms-correlation-request-id" request header
+	// CorrelationRequestID is provided by the "x-ms-correlation-request-id" request header
 	CorrelationRequestID string `json:"correlationRequestId,omitempty"`
 	// NotificationURI is provided by the Azure-AsyncNotificationUri header if the
 	// Async Operation Callbacks ARM feature is enabled

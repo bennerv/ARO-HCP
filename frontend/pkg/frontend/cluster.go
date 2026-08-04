@@ -382,7 +382,7 @@ func (f *Frontend) createHCPCluster(writer http.ResponseWriter, request *http.Re
 	}
 
 	// we must validate using user provided .Identity.UserAssignedIdentities because that is the intent expressed by the user to allow
-	// us to use these identities. The information contained in those key is not trusted to be accurate, so we clear this field and set to
+	// us to use these identities. The information contained in those keys is not trusted to be accurate, so we clear this field and set it to
 	// a valid, but empty set of information
 	if newInternalCluster.Identity != nil {
 		newInternalCluster.Identity.UserAssignedIdentities = nil
@@ -410,7 +410,7 @@ func (f *Frontend) createHCPCluster(writer http.ResponseWriter, request *http.Re
 	}
 
 	// set fields that were not known until the operation doc instance was created.
-	// TODO once we we have separate creation/validation of operation documents, this can be done ahead of time.
+	// TODO once we have separate creation/validation of operation documents, this can be done ahead of time.
 	newInternalCluster.ServiceProviderProperties.ActiveOperationID = clusterCreateOperation.ResourceID.Name
 	newInternalCluster.ServiceProviderProperties.ProvisioningState = clusterCreateOperation.Status
 
@@ -457,7 +457,7 @@ func decodeDesiredClusterReplace(ctx context.Context, oldInternalCluster *api.HC
 	// Decoding for update has a series of semantics for determining the final desired update
 	// 1. exact user request
 	// 2. defaults for that version
-	// 3. if not set, the values that the user doesn't necessary have to set but are not static defaults.  These from from the old value.
+	// 3. if not set, the values that the user doesn't necessarily have to set but are not static defaults.  These come from the old value.
 	// 4. values that are missing because the external type doesn't represent them
 	// 5. values that might change because our machinery changes them.
 
@@ -640,7 +640,7 @@ func (f *Frontend) updateHCPClusterInCosmos(ctx context.Context, writer http.Res
 	}
 
 	// we must validate using user provided .Identity.UserAssignedIdentities because that is the intent expressed by the user to allow
-	// us to use these identities. The information contained in those key is not trusted to be accurate, so we clear this field and set to
+	// us to use these identities. The information contained in those keys is not trusted to be accurate, so we clear this field and set it to
 	// a valid, but empty set of information
 	if newInternalCluster.Identity != nil {
 		newInternalCluster.Identity.UserAssignedIdentities = nil
@@ -668,7 +668,7 @@ func (f *Frontend) updateHCPClusterInCosmos(ctx context.Context, writer http.Res
 	}
 
 	// set fields that were not known until the operation doc instance was created.
-	// TODO once we we have separate creation/validation of operation documents, this can be done ahead of time.
+	// TODO once we have separate creation/validation of operation documents, this can be done ahead of time.
 	newInternalCluster.ServiceProviderProperties.ActiveOperationID = clusterUpdateOperation.ResourceID.Name
 	newInternalCluster.ServiceProviderProperties.ProvisioningState = clusterUpdateOperation.Status
 

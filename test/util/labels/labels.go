@@ -20,7 +20,7 @@ import (
 	"github.com/onsi/ginkgo/v2"
 )
 
-// TODO makes these ginkgo.Labels produced by ginkgo.Label (notice the plural return) into strings and refactor the test usage.
+// TODO make these ginkgo.Labels produced by ginkgo.Label (notice the plural return) into strings and refactor the test usage.
 
 var (
 	// Positivity of test cases

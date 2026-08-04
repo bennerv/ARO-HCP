@@ -34,7 +34,7 @@
 
 ### Hypershift
 
-- **Definition** Hypershift is a middleware to host OCP control planes on Kubernetes clusters.
+- **Definition:** Hypershift is a middleware to host OCP control planes on Kubernetes clusters.
 - **Reference:**
   - [Documentation](https://hypershift-docs.netlify.app/how-to/)
   - [Source](https://github.com/openshift/hypershift)
@@ -57,7 +57,7 @@
 
 ### Clusters Service
 
-- **Definition:**: Service that orchestrates the creation and day two management of managed OpenShift clusters
+- **Definition:** Service that orchestrates the creation and day two management of managed OpenShift clusters
 - **Abbreviation**: CS
 - **References**:
   - [Source](https://gitlab.cee.redhat.com/service/uhc-clusters-service/)

@@ -51,7 +51,7 @@ forwarder:
       configVersion: "{{ .geneva.logs.rp.configVersion }}"
       environment: "{{ .geneva.logs.environment }}"
       region: "{{ .region }}"
-    ## Specifies whether mdsd should enabled
+    ## Specifies whether mdsd should be enabled
     enabled: {{ .arobit.mdsd.enabled }}
     ## mdsd image version
     ##

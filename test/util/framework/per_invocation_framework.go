@@ -240,7 +240,7 @@ func (tc *perBinaryInvocationTestContext) getHCPClientFactoryOptions() *azcorear
 	}
 }
 
-// default transport taken judiciously from azcore library to mimick their behavior when no transporter is provided
+// default transport taken judiciously from azcore library to mimic their behavior when no transporter is provided
 func defaultHTTPTransport() *http.Transport {
 	dialer := &net.Dialer{
 		Timeout:   30 * time.Second,

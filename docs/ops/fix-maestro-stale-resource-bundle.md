@@ -29,7 +29,7 @@ The Maestro agent only reports resource changes when the resource generation is 
    nslookup api.<cluster-name>.<region>.aroapp-hcp.azure-test.net
    
    # Check the actual shared ingress service IP in the MC
-   kubectl get svc -n hypeshift-sharedingress router
+   kubectl get svc -n hypershift-sharedingress router
    ```
 
 2. **Verify stale data in Maestro**

@@ -34,7 +34,7 @@ const (
 )
 
 // FPAMIDataplaneClientBuilder offers the ability to create Managed Identity Data Plane clients
-// authenticating as the the First Party Application (FPA) identity.
+// authenticating as the First Party Application (FPA) identity.
 type FPAMIDataplaneClientBuilder interface {
 	BuilderType() FPAMIDataplaneClientBuilderType
 	// ManagedIdentitiesDataplane returns a new Managed Identity Data Plane client using the given identity URL.
@@ -57,7 +57,7 @@ func (b *fpaMIdataplaneClientBuilder) BuilderType() FPAMIDataplaneClientBuilderT
 func (b *fpaMIdataplaneClientBuilder) ManagedIdentitiesDataplane(identityURL string) (ManagedIdentitiesDataplaneClient, error) {
 	creds, err := b.fpaTokenCredRetriever.RetrieveCredential(
 		b.serviceTenantID,
-		// The MI dataplane client receives tenant from the bearer challenge, we use a widlcard * so as
+		// The MI dataplane client receives tenant from the bearer challenge, we use a wildcard * so as
 		// to not limit the allowed tenants in the credential. This was taken from
 		// https://github.com/Azure/ARO-RP/blob/9719391dd5d2213abb1b895e9b9471925f5aec0d/pkg/cluster/cluster.go#L329
 		// which was added as part of needed fixes to make Managed Identity work in MSFT Canary env
@@ -74,7 +74,7 @@ func (b *fpaMIdataplaneClientBuilder) ManagedIdentitiesDataplane(identityURL str
 
 // NewFPAMIDataplaneClientBuilder provides a new instance of
 // FPAMIDataplaneClientBuilder that allows to retrieve Managed Identities Data Plane clients
-// authenticating as the the First Party Application (FPA) identity.
+// authenticating as the First Party Application (FPA) identity.
 func NewFPAMIDataplaneClientBuilder(serviceTenantID string, fpaTokenCredRetriever fpa.FirstPartyApplicationTokenCredentialRetriever, audience string, options *azcore.ClientOptions) FPAMIDataplaneClientBuilder {
 	return &fpaMIdataplaneClientBuilder{
 		serviceTenantID:       serviceTenantID,

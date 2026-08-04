@@ -15,7 +15,7 @@ The individual components are described in the [service components overview](../
     - (Async) At the same time, ARM will automatically issue polling GET requests to the OperationStatus resources on the customer's behalf (to the Frontend) so they see this status in live time.
 5. Clusters Service prepares a managed resource group in the customers subscription and creates the cloud resources for the cluster
 6. Clusters Service posts `ManifestWork` containing `HostedCluster` Hypershift CRs and other supporting resources to the Maestro Server
-7. The Maestro Server posts transfers the `ManifestWork` to the Maestro Agent via Eventgrid Namespaces MQTT
+7. The Maestro Server transfers the `ManifestWork` to the Maestro Agent via Eventgrid Namespaces MQTT
 8. The Maestro Agent applies the `ManifestWork`, creating the `ocm-xxx-${CLUSTER_ID}` namespace, the Hypershift `HostedCluster` CR, supporting secrets and configmaps as well as the `ManagedCluster` MCE CR.
 9. The Hypershift operator picks up on the `HostedCluster` CR, creates the `ocm-xxx-${CLUSTER_ID}-${CLUSTER_NAME}` namespace, the control plane deployments within it and supporting cloud resources in the managed resource group of the customer
 10. MCE picks up on the finished `HostedCluster` provisioning and updates the `ManagedCluster` CR.

@@ -287,7 +287,7 @@ func setupCli() *cobra.Command {
 		Name: "dev-cd-check/parallel",
 		Qualifiers: []string{
 			// Subset of E2E tests to be executed as a final step during ARO
-			// HCP Continous Deployment GitHub Action Workflow.
+			// HCP Continuous Deployment GitHub Action Workflow.
 			// TODO: revisit labels to tweak which tests to select here
 			fmt.Sprintf(`labels.exists(l, l=="%s" ) && labels.exists(l, l=="%s")`, labels.AroRpApiCompatible[0], labels.Positive[0]),
 		},

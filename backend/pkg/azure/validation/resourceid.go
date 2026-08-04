@@ -111,7 +111,7 @@ func ValidateNetworkSecurityGroupResourceID(ctx context.Context, op operation.Op
 // Resource ID string specified in `resourceID` is a valid Azure Public DNS Zone
 // Resource ID.
 // The validations that are performed are:
-//   - The resource type of the  Public DNS Zone resource id is the
+//   - The resource type of the Public DNS Zone resource id is the
 //     expected one for Azure Network Security Groups
 func ValidatePublicDNSZoneResourceID(ctx context.Context, op operation.Operation, fldPath *field.Path, resourceID *azcorearm.ResourceID) field.ErrorList {
 	return ValidateResourceGroupScopedResourceID(ctx, op, fldPath, resourceID, publicDNSZoneResourceType)
@@ -126,7 +126,7 @@ func ValidateUserAssignedManagedIdentity(ctx context.Context, op operation.Opera
 	return ValidateResourceGroupScopedResourceID(ctx, op, fldPath, resourceID, userAssignedManagedIdentityType)
 }
 
-// ValidateACRResourceID  validates that the Azure Container Registry
+// ValidateACRResourceID validates that the Azure Container Registry
 // `resourceID` is a valid Azure Container Registry Resource ID.
 // The validations that are performed are:
 //   - The resource type of the Azure Container Registry resource id is the

@@ -257,7 +257,7 @@ func operationFor(op timing.Operation) (ARMOperation, error) {
 
 var pattern = regexp.MustCompile(`^P((?P<year>\d+)Y)?((?P<month>\d+)M)?((?P<week>\d+)W)?((?P<day>\d+)D)?(T((?P<hour>\d+)H)?((?P<minute>\d+)M)?((?P<second>\d+\.?\d*)S)?)?$`)
 
-// parseISO8601Duration parses a string into a time.Duration as per the IS08601 specification
+// parseISO8601Duration parses a string into a time.Duration as per the ISO8601 specification
 // See: https://en.wikipedia.org/wiki/ISO_8601#Durations
 func parseISO8601Duration(from string) (time.Duration, error) {
 	var match []string

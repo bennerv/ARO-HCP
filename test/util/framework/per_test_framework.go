@@ -151,7 +151,7 @@ func NewTestContext() *perItOrDescribeTestContext {
 			// time to keep a record of the "root" name for registration purposes.
 			//
 			// n.b. ContainerHierarchyTexts contains Describe() and Context() but does not contain It(),
-			// and the LeadNodeText has It() but not By(), so the full identifier must contain both the
+			// and the LeafNodeText has It() but not By(), so the full identifier must contain both the
 			// hierarchy prefix and the leaf node. Multiple tests nested in By() under one It() will run
 			// afoul of this approach, but that looks to never happen based on convention.
 			Identifier:  append(ginkgo.CurrentSpecReport().ContainerHierarchyTexts, ginkgo.CurrentSpecReport().LeafNodeText),
@@ -1311,7 +1311,7 @@ func (tc *perItOrDescribeTestContext) recordTestStepUnlocked(name string, startT
 }
 
 func (tc *perItOrDescribeTestContext) commitTimingMetadata(ctx context.Context) {
-	ginkgo.GinkgoLogr.Info("Commiting timing metadata.")
+	ginkgo.GinkgoLogr.Info("Committing timing metadata.")
 
 	tc.contextLock.Lock()
 	defer tc.contextLock.Unlock()

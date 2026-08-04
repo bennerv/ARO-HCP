@@ -100,7 +100,7 @@ func MiddlewareLogging(w http.ResponseWriter, r *http.Request, next http.Handler
 	// we do this so that we can add subscription, resourceGroup, and hcpCluster to the logger context for future searching
 	// if possible.
 	// It's important to do before the second panic handler so that panics can be correlated easily.
-	// TODO are the value we find case sensitive or case insensitive.  They used to be case sensitive, so I have left that
+	// TODO are the values we find case sensitive or case insensitive.  They used to be case sensitive, so I have left that
 	if resourceID, err := azcorearm.ParseResourceID(r.URL.Path); err == nil {
 		logger = logger.WithValues(utils.LogValues{}.AddLogValuesForResourceID(resourceID)...)
 	}

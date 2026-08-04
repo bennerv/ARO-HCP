@@ -98,7 +98,7 @@ var (
 	)
 )
 
-// emptySystemData provides enough systemdata (normally supplied somewhere in ARM) to enable the server tow ork.
+// emptySystemData provides enough systemdata (normally supplied somewhere in ARM) to enable the server to work.
 type emptySystemData struct{}
 
 func (d emptySystemData) Do(req *policy.Request) (*http.Response, error) {

@@ -121,7 +121,7 @@ type ServiceProviderClusterStatus struct {
 	// +listMapKey=type
 	// Known condition types are:
 	// - "Progressing": True when the cluster is in the process of being created, updated, or deleted. Both end-user initiated actions as
-	//   well as internal actions such as upgrades or other maintenance operations are in progress are included in thsi condition.
+	//   well as internal actions such as upgrades or other maintenance operations are in progress are included in this condition.
 	// - "Degraded": True when the cluster is in a degraded state
 	// Addition of new conditions here should be done only when strictly necessary, sparingly and only done
 	// when there is a clear benefit to doing so. We expect the number of conditions at this
@@ -306,7 +306,7 @@ type MaestroBundleReferenceList []*MaestroBundleReference
 
 // Get returns a copy to the Maestro Bundle reference for a given Maestro Bundle internal name. It returns a pointer
 // for a clear indication of "not found", it doesn't return a reference intended for mutation of the original list.
-// If the Maestro Bundle reference identifies by name does not exist, it returns nil.
+// If the Maestro Bundle reference identified by name does not exist, it returns nil.
 // If multiple Maestro Bundle references are found for the same internal name, it returns an error.
 func (l MaestroBundleReferenceList) Get(name MaestroBundleInternalName) (*MaestroBundleReference, error) {
 	var bundleReference *MaestroBundleReference
@@ -323,8 +323,8 @@ func (l MaestroBundleReferenceList) Get(name MaestroBundleInternalName) (*Maestr
 }
 
 // Set sets the Maestro Bundle reference for a given Maestro Bundle internal name.
-// If the Maestro Bundle reference identifies by name does not exist, it is added.
-// If the Maestro Bundle reference identifies by name already exists, it is updated.
+// If the Maestro Bundle reference identified by name does not exist, it is added.
+// If the Maestro Bundle reference identified by name already exists, it is updated.
 func (l *MaestroBundleReferenceList) Set(maestroBundleReference *MaestroBundleReference) error {
 	existingMaestroBundleReference, err := l.Get(maestroBundleReference.Name)
 	if err != nil {

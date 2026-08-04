@@ -74,8 +74,8 @@ This document outlines the process of creating an HCP via the Cluster Service ru
         export CS_CLUSTER_NAME="<desired-cluster-name>"
         ```
 
-    * Create the User-Assigned Managed Identities for the Control Plane operators. This assumes OCP 4.19 based will be created.
-      > [!NOTE] Managed Identities cannot be reused between operators nor between clusters. This is, each operator must use a different managed identity, and different clusters must use different managed identities, even for the same operators.
+    * Create the User-Assigned Managed Identities for the Control Plane operators. This assumes OCP 4.19-based clusters will be created.
+      > [!NOTE] Managed Identities cannot be reused between operators nor between clusters. That is, each operator must use a different managed identity, and different clusters must use different managed identities, even for the same operators.
       >
       > [!NOTE] Remember to cleanup the created Managed Identities once you are done with the cluster. See the `Cleaning up a Cluster` section
 
@@ -104,7 +104,7 @@ This document outlines the process of creating an HCP via the Cluster Service ru
         ```
 
     * Create the User-Assigned Managed Identities for the Data Plane operators. This assumes OCP 4.19 clusters will be created.
-      > [!NOTE] Managed Identities cannot be reused between operators nor between clusters. This is, each operator must use a different managed identity, and different clusters must use different managed identities, even for the same operators.
+      > [!NOTE] Managed Identities cannot be reused between operators nor between clusters. That is, each operator must use a different managed identity, and different clusters must use different managed identities, even for the same operators.
       >
       > [!NOTE] Remember to cleanup the created Managed Identities once you are done with the cluster. See the `Cleaning up a Cluster` section
 
@@ -121,7 +121,7 @@ This document outlines the process of creating an HCP via the Cluster Service ru
         ```
 
     * Create the User-Assigned Service Managed Identity
-      > [!NOTE] Managed Identities cannot be reused between operators nor between clusters. This is, each operator must use a different managed identity, and different clusters must use different managed identities, even for the same operators.
+      > [!NOTE] Managed Identities cannot be reused between operators nor between clusters. That is, each operator must use a different managed identity, and different clusters must use different managed identities, even for the same operators.
       >
       > [!NOTE] Remember to cleanup the created Managed Identities once you are done with the cluster. See the `Cleaning up a Cluster` section
 

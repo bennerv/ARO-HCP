@@ -35,7 +35,7 @@ func runImageMirrorStep(id graph.Identifier, ctx context.Context, step *types.Im
 	}
 
 	if err := os.Chmod(tmpFile.Name(), 0755); err != nil {
-		return fmt.Errorf("error make script temp file executable %w", err)
+		return fmt.Errorf("error making script temp file executable %w", err)
 	}
 
 	defer func() {

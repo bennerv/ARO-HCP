@@ -56,7 +56,7 @@ param serviceKeyVaultResourceGroup string
   ''')
 param regionalCXDNSZoneName string
 
-@description('The regional resourece group')
+@description('The regional resource group')
 param regionalResourceGroup string
 
 @description('The OCP ACR resource ID. CS will manage tokens for HCPs in this ACR')

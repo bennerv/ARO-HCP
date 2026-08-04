@@ -30,7 +30,7 @@ Refer to the [schema](../../config/config.schema.json) for more details on the c
 
 [Refer to the azure docs for details](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-major-version-upgrade)
 
-Azure Database for PostgreSQL Flexible Server officially treat major version upgrades as **offline operations** meaning this will incur downtime.
+Azure Database for PostgreSQL Flexible Server officially treats major version upgrades as **offline operations** meaning this will incur downtime.
 
 Overview:
 

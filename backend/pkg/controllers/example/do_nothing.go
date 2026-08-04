@@ -73,7 +73,7 @@ func (c *doNothingExample) synchronizeHCPCluster(ctx context.Context, key contro
 	}
 
 	// Check to see if you have work to do here.  You may also choose to look at state you saved for yourself for later,
-	// but this is slightly less desireable and you should always force a recheck of the actual state of the world after
+	// but this is slightly less desirable and you should always force a recheck of the actual state of the world after
 	// a certain staleness.
 	existingController, err := c.resourcesDBClient.HCPClusters(key.SubscriptionID, key.ResourceGroupName).Controllers(key.HCPClusterName).Get(ctx, c.name)
 	if err != nil && !database.IsNotFoundError(err) {
@@ -118,7 +118,7 @@ func (c *doNothingExample) QueueForInformers(resyncDuration time.Duration, notif
 func (c *doNothingExample) SyncOnce(ctx context.Context, keyObj any) error {
 	key := keyObj.(controllerutils.HCPClusterKey)
 
-	syncErr := c.synchronizeHCPCluster(ctx, key) // we'll handle this is a moment.
+	syncErr := c.synchronizeHCPCluster(ctx, key) // we'll handle this in a moment.
 
 	controllerWriteErr := controllerutils.WriteController(
 		ctx,
@@ -214,7 +214,7 @@ func (c *doNothingExample) processNextWorkItem(ctx context.Context) bool {
 	logger = ref.AddLoggerValues(logger)
 	ctx = utils.ContextWithLogger(ctx, logger)
 
-	// Process the object reference.  This method will contains your "do stuff" logic
+	// Process the object reference.  This method will contain your "do stuff" logic
 	controllerutils.ReconcileTotal.WithLabelValues(c.name).Inc()
 	err := c.SyncOnce(ctx, ref)
 	if err == nil {

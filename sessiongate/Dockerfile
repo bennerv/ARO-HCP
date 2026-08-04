@@ -1,6 +1,6 @@
 ARG PLATFORM
 
-# Builder image installs tools needed to build aro-hcp-backend
+# Builder image installs tools needed to build sessiongate
 FROM --platform=${PLATFORM} mcr.microsoft.com/oss/go/microsoft/golang:1.25-azurelinux3.0 AS builder
 COPY internal/go.mod internal/go.sum internal/
 COPY sessiongate/go.mod sessiongate/go.sum sessiongate/

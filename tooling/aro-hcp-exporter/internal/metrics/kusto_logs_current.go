@@ -109,7 +109,7 @@ func (c *KustoLogsCurrentCollector) CollectMetricValues(ctx context.Context) {
 		queryOptions.InfraClusterName = clusterName
 		queryOptions.TimestampMin = time.Now().Add(-120 * time.Minute)
 		queryOptions.TimestampMax = time.Now()
-		// Use magic number for now, will change to specific limit for each table, once kql generater is done
+		// Use magic number for now, will change to specific limit for each table, once kql generator is done
 		queryOptions.Limit = 100
 		queryOptions.OrderBy = kusto.OrderByDesc
 

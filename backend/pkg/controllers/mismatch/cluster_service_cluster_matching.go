@@ -81,7 +81,7 @@ func (c *clusterServiceClusterMatching) getAllCosmosObjs(ctx context.Context) (m
 
 		for _, cluster := range allHCPClusters.Items(ctx) {
 			ret = append(ret, cluster)
-			// we skip items without a clusterServiceID because they make be about to get them and shouldn't be deleted.
+			// we skip items without a clusterServiceID because they may be about to get them and shouldn't be deleted.
 			if cluster.ServiceProviderProperties.ClusterServiceID == nil {
 				continue
 			}
@@ -163,7 +163,7 @@ func (c *clusterServiceClusterMatching) QueueForInformers(resyncDuration time.Du
 func (c *clusterServiceClusterMatching) SyncOnce(ctx context.Context, _ any) error {
 	logger := utils.LoggerFromContext(ctx)
 
-	syncErr := c.synchronizeAllClusters(ctx) // we'll handle this is a moment.
+	syncErr := c.synchronizeAllClusters(ctx) // we'll handle this in a moment.
 	if syncErr != nil {
 		logger.Error(syncErr, "unable to synchronize all clusters")
 	}

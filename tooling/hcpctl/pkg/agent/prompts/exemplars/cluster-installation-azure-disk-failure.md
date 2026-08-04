@@ -9,7 +9,7 @@ plane due to internal Azure Disk errors.
 
 An end-to-end test installing two ARO HCP clusters in one resource group installed one without issue, but failed on the
 other. The test client polled ARM for the async operation without issue, but the status never proceeded. The RP backend
-posted no degraded controller status, but Clusters Service never progressed passed `'installing'` phase. The HyperShift
+posted no degraded controller status, but Clusters Service never progressed past `'installing'` phase. The HyperShift
 `HostedCluster` never posted a `Available` condition with `status=True`, claiming that it was stuck on
 `reason=KubeconfigWaitingForCreate.` Furthermore, the `HostedCluster` claimed that `KubeAPIServerAvailable=False`
 because the `kube-apiserver` deployment could not be found. The `hypershift-operator`, however, logged that `etcd` was

@@ -91,7 +91,7 @@ func NewNodePoolVersionController(
 		resourcesDBClient,
 		informers,
 		kubeApplierInformers,
-		resyncDuration, // Check for upgrades every 5 minutes
+		resyncDuration, // Check for upgrades every minute
 		syncer,
 	)
 

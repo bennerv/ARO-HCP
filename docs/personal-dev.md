@@ -83,7 +83,7 @@ After this, the config files are created in `cluster-service/local/`. This conta
 The process described in the previous section caches steps, but even the process of determining that a step should not run again will take a second or two. In case you want to install or update only a specific part of the environment for maximum speed, you can use the following commands.
 
 > [!IMPORTANT]
-> Please understand the ARO HCP [architecture](high-level-architecture.md) and the [service deployment concept](service-deployment-concept.md) before proceeding with the partial setup. Not every command can be run in isolation without it's prerequisites being met, e.g. before deploying services, you need to provision the cluster
+> Please understand the ARO HCP [architecture](high-level-architecture.md) and the [service deployment concept](service-deployment-concept.md) before proceeding with the partial setup. Not every command can be run in isolation without its prerequisites being met, e.g. before deploying services, you need to provision the cluster
 
 ### Partial Commands
 
@@ -104,7 +104,7 @@ The `-svc` and `-mgmt-1` resource groups contain the service and management AKS 
   export KUBECONFIG=$(make infra.mgmt.aks.kubeconfigfile)
   ```
 
-The cluster in personal DEV have no reachable ingress. To interact with the services you deploy use `kubectl port-forward`
+The clusters in personal DEV have no reachable ingress. To interact with the services you deploy use `kubectl port-forward`
 
   ```bash
   kubectl port-forward svc/aro-hcp-frontend 8443:8443 -n aro-hcp
@@ -149,7 +149,7 @@ Besides the automated cleanup for non-persistent environments, you can manually 
 
 ## Responsibilities
 
-- **Lifecycle**: The personal DEV environments lifecycle is the responsibility of the individual team member. This includes creating, updating, and deleting the environment as well as keeping track of recent change and bugfixes and applying them.
+- **Lifecycle**: The personal DEV environment's lifecycle is the responsibility of the individual team member. This includes creating, updating, and deleting the environment as well as keeping track of recent change and bugfixes and applying them.
 
   > [!TIP]
   > Delete personal DEV environments when they are no longer needed to free up resources and prevent unnecessary costs.
