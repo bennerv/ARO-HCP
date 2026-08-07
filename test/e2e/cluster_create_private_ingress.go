@@ -51,6 +51,16 @@ var _ = Describe("Customer", func() {
 
 			tc := framework.NewTestContext()
 
+			By("checking API version availability")
+			available, err := tc.IsHCPAPIVersionAvailable(ctx, "2026-06-30-preview")
+			Expect(err).NotTo(HaveOccurred(), "failed to check API version availability")
+			if !available {
+				if time.Now().After(framework.V20260630PreviewDeploymentDeadline) {
+					Fail(fmt.Sprintf("v20260630preview API should be available by %s", framework.V20260630PreviewDeploymentDeadline.Format(time.RFC3339)))
+				}
+				Skip(fmt.Sprintf("v20260630preview API not yet deployed; skipping until %s", framework.V20260630PreviewDeploymentDeadline.Format(time.RFC3339)))
+			}
+
 			if tc.UsePooledIdentities() {
 				err := tc.AssignIdentityContainers(ctx, 1, framework.IdentityContainerAssignmentRetryInterval)
 				Expect(err).NotTo(HaveOccurred(), "failed to assign pooled identity containers")
@@ -84,12 +94,6 @@ var _ = Describe("Customer", func() {
 				nil,
 				framework.ClusterCreationTimeout,
 			)
-			if isAPINotDeployedError(err) {
-				if time.Now().Before(framework.V20260630PreviewDeploymentDeadline) {
-					Skip(fmt.Sprintf("v20260630preview API not yet deployed; skipping until %s", framework.V20260630PreviewDeploymentDeadline.Format(time.RFC3339)))
-				}
-				Fail(fmt.Sprintf("v20260630preview API still not deployed as of %s deadline", framework.V20260630PreviewDeploymentDeadline.Format(time.RFC3339)))
-			}
 			Expect(err).NotTo(HaveOccurred(), "failed to create HCP cluster %q with private ingress", customerClusterName)
 
 			By("verifying cluster was created with private ingress type via ARM GET")

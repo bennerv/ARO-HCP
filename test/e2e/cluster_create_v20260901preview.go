@@ -45,6 +45,16 @@ var _ = Describe("Customer", func() {
 
 			tc := framework.NewTestContext()
 
+			By("checking API version availability")
+			available, err := tc.IsHCPAPIVersionAvailable(ctx, "2026-09-01-preview")
+			Expect(err).NotTo(HaveOccurred(), "failed to check API version availability")
+			if !available {
+				if time.Now().After(timeBombDeadline) {
+					Fail(fmt.Sprintf("v20260901preview API should be available by %s", timeBombDeadline.Format(time.RFC3339)))
+				}
+				Skip(fmt.Sprintf("v20260901preview API not yet deployed; skipping until %s", timeBombDeadline.Format(time.RFC3339)))
+			}
+
 			if tc.UsePooledIdentities() {
 				err := tc.AssignIdentityContainers(ctx, 1, framework.IdentityContainerAssignmentRetryInterval)
 				Expect(err).NotTo(HaveOccurred(), "failed to assign pooled identity containers")
@@ -77,12 +87,6 @@ var _ = Describe("Customer", func() {
 				nil,
 				framework.ClusterCreationTimeout,
 			)
-			if isAPINotDeployedError(err) {
-				if time.Now().Before(timeBombDeadline) {
-					Skip(fmt.Sprintf("v20260901preview API not yet deployed; skipping until %s", timeBombDeadline.Format(time.RFC3339)))
-				}
-				Fail(fmt.Sprintf("v20260901preview API still not deployed as of %s deadline", timeBombDeadline.Format(time.RFC3339)))
-			}
 			Expect(err).NotTo(HaveOccurred(), "failed to create HCP cluster %q via v20260901preview", customerClusterName)
 
 			By("creating the node pool")

@@ -26,6 +26,7 @@ import (
 	"fmt"
 	"net/http"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/google/go-cmp/cmp"
@@ -285,4 +286,68 @@ func HasNodeTaint(nodes []corev1.Node, key, value string, effect corev1.TaintEff
 	}
 
 	return count == expectedCount[0]
+}
+
+var hcpResourceTypes = []string{
+	"HCPOpenShiftClusters",
+	"HCPOpenShiftClusters/NodePools",
+	"HCPOpenShiftClusters/ExternalAuths",
+	"locations/hcpOpenShiftVersions",
+	"locations/hcpOperatorIdentityRoleSets",
+	"locations/hcpOperationResults",
+	"locations/hcpOperationStatuses",
+}
+
+// IsHCPAPIVersionAvailable checks whether the given API version is registered
+// for all Microsoft.RedHatOpenShift HCP resource types. Returns true only when
+// every HCP resource type lists the requested API version. In development
+// environments the check is skipped and true is returned.
+func (tc *perItOrDescribeTestContext) IsHCPAPIVersionAvailable(ctx context.Context, apiVersion string) (bool, error) {
+	if IsDevelopmentEnvironment() {
+		return true, nil
+	}
+
+	resourcesFactory, err := tc.GetARMResourcesClientFactory(ctx)
+	if err != nil {
+		return false, fmt.Errorf("failed to get ARM resources client factory: %w", err)
+	}
+
+	providersClient := resourcesFactory.NewProvidersClient()
+	provider, err := providersClient.Get(ctx, "Microsoft.RedHatOpenShift", nil)
+	if err != nil {
+		return false, fmt.Errorf("failed to get Microsoft.RedHatOpenShift resource provider: %w", err)
+	}
+
+	versionsByType := make(map[string][]string)
+	for _, rt := range provider.ResourceTypes {
+		if rt.ResourceType == nil {
+			continue
+		}
+		versions := make([]string, 0, len(rt.APIVersions))
+		for _, v := range rt.APIVersions {
+			if v != nil {
+				versions = append(versions, *v)
+			}
+		}
+		versionsByType[strings.ToLower(*rt.ResourceType)] = versions
+	}
+
+	for _, resourceType := range hcpResourceTypes {
+		versions, ok := versionsByType[strings.ToLower(resourceType)]
+		if !ok {
+			return false, nil
+		}
+		hasVersion := false
+		for _, v := range versions {
+			if strings.EqualFold(v, apiVersion) {
+				hasVersion = true
+				break
+			}
+		}
+		if !hasVersion {
+			return false, nil
+		}
+	}
+
+	return true, nil
 }
