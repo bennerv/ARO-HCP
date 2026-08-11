@@ -88,3 +88,9 @@ require (
 )
 
 replace github.com/Azure/ARO-HCP/internal => ../internal
+
+replace github.com/openshift-online/ocm-sdk-go => github.com/bennerv/ocm-sdk-go v0.0.0-20260810232747-207c936eaaab
+
+replace github.com/openshift-online/ocm-api-model/clientapi => github.com/bennerv/ocm-api-model/clientapi v0.0.0-20260810224335-128739b64f51
+
+replace github.com/openshift-online/ocm-api-model/model => github.com/bennerv/ocm-api-model/model v0.0.0-20260810224335-128739b64f51

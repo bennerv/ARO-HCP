@@ -239,8 +239,8 @@ require (
 	github.com/mxk/go-flowrate v0.0.0-20140419014527-cca7078d478f // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
-	github.com/openshift-online/ocm-api-model/clientapi v0.0.457 // indirect
-	github.com/openshift-online/ocm-api-model/model v0.0.457 // indirect
+	github.com/openshift-online/ocm-api-model/clientapi v0.0.464 // indirect
+	github.com/openshift-online/ocm-api-model/model v0.0.464 // indirect
 	github.com/openshift-online/ocm-sdk-go v0.1.503 // indirect
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c // indirect
@@ -391,3 +391,9 @@ replace github.com/onsi/ginkgo/v2 => github.com/openshift/onsi-ginkgo/v2 v2.6.1-
 exclude google.golang.org/grpc/stats/opentelemetry v0.0.0-20240907200651-3ffb98b2c93a
 
 exclude github.com/ahmetb/gen-crd-api-reference-docs v0.3.1-0.20260316152250-6bbddc29119c
+
+replace github.com/openshift-online/ocm-sdk-go => github.com/bennerv/ocm-sdk-go v0.0.0-20260810232747-207c936eaaab
+
+replace github.com/openshift-online/ocm-api-model/clientapi => github.com/bennerv/ocm-api-model/clientapi v0.0.0-20260810224335-128739b64f51
+
+replace github.com/openshift-online/ocm-api-model/model => github.com/bennerv/ocm-api-model/model v0.0.0-20260810224335-128739b64f51

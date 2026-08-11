@@ -39,8 +39,8 @@ require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jedib0t/go-pretty/v6 v6.6.7 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
-	github.com/openshift-online/ocm-api-model/clientapi v0.0.457 // indirect
-	github.com/openshift-online/ocm-api-model/model v0.0.457 // indirect
+	github.com/openshift-online/ocm-api-model/clientapi v0.0.464 // indirect
+	github.com/openshift-online/ocm-api-model/model v0.0.464 // indirect
 	github.com/openshift/api v0.0.0-20260429122012-1180c0f5c3e9 // indirect
 	github.com/openshift/hypershift/api v0.0.0-20260602200802-c135e0c47b37 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
@@ -129,3 +129,9 @@ replace github.com/Azure/ARO-HCP/internal => ../internal
 replace github.com/Azure/ARO-HCP/test-integration => ../test-integration
 
 replace github.com/Azure/ARO-HCP/test/sdk/v20240610preview/resourcemanager/redhatopenshifthcp/armredhatopenshifthcp => ../test/sdk/v20240610preview/resourcemanager/redhatopenshifthcp/armredhatopenshifthcp
+
+replace github.com/openshift-online/ocm-sdk-go => github.com/bennerv/ocm-sdk-go v0.0.0-20260810232747-207c936eaaab
+
+replace github.com/openshift-online/ocm-api-model/clientapi => github.com/bennerv/ocm-api-model/clientapi v0.0.0-20260810224335-128739b64f51
+
+replace github.com/openshift-online/ocm-api-model/model => github.com/bennerv/ocm-api-model/model v0.0.0-20260810224335-128739b64f51
