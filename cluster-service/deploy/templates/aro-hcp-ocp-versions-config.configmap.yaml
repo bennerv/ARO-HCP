@@ -6,8 +6,8 @@ metadata:
 data:
   aro-hcp-ocp-versions-config.yaml: |
     defaultVersion:
-      channelGroupName: stable
-      version: 4.20.8
+      channelGroupName: candidate
+      version: 4.21
     channelGroups:
       - url: https://api.openshift.com/api/upgrades_info/graph
         channelGroupName: stable

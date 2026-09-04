@@ -54,8 +54,8 @@ metadata:
 data:
   aro-hcp-ocp-versions-config.yaml: |
     defaultVersion:
-      channelGroupName: stable
-      version: 4.20.8
+      channelGroupName: candidate
+      version: 4.21
     channelGroups:
       - url: https://api.openshift.com/api/upgrades_info/graph
         channelGroupName: stable
@@ -7893,7 +7893,7 @@ spec:
       annotations:
         checksum/db: '7d748725a08edbe974bbd237e5dd517833a82eaa0f0b211fc2881961bf4515a8'
         checksum/operatorcfg: '110eacb1e465d620a2c26da89d5b6246433bb53a2dd3f9853e2daaa035e53df5'
-        checksum/ocpversionscfg: 'b4b40e1ecfb6e659a166da0bc97f69a8d8d19b8cc1c0f9a3ef50d2d1b23cbe71'
+        checksum/ocpversionscfg: '7915f8ca23c5ae1967a9b881b8a74e267851878ae28791a9fcd57363502a6428'
         checksum/cskv: '089346897c49e4b24754b3c6c3be350f8b0e6bf2c2c64c442b1744db4faee2fb'
         checksum/provisionshard: 'd2d4582f46da482e7a0c56f8a4372d95839bf6ced1d48a964d7030dc7e1b5b4b'
         checksum/cs: '7f91f7a8dc3a8b51073043defb13df2c3864a9c93f5a5588a2431f012bc2ae28'
